@@ -24,3 +24,8 @@ venv
 .venv
 user.mk
 .vscode
+/.ipynb_checkpoints
+/.ipynb_checkpoints
+/build_en
+/build_mm0
+*.zip

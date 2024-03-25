@@ -4,7 +4,7 @@
 .. _`label.getstarted`:
 
 ***************
-Getting Started
+Getting Started or not
 ***************
 
 .. only:: html
@@ -144,7 +144,7 @@ Where :file:`qgis_sample_data` represents the path to the unzipped dataset.
 #. Start QGIS as seen in :ref:`label_startingqgis`.
 #. The data we will be working with are in ``Albers Equal Area``,
    so let's set the project's CRS accordingly:
-
+   
    #. Click the |setProjection| :sup:`Select projection` button
       in the bottom right of QGIS interface.
       The project properties dialog opens with the :guilabel:`CRS` tab active.
@@ -210,10 +210,10 @@ Let's adjust that.
 You now have the two layers available in your project in some random colours.
 Let's do some customization on the lakes layer.
 
-#. Select the |zoomIn| :sup:`Zoom In` tool on the :guilabel:`Navigation` toolbar
+#. Select the |zoomIn|:sup:`Zoom In` tool on the :guilabel:`Navigation` toolbar
 #. Zoom to an area with some lakes
 #. Double-click the :file:`lakes` layer in the map legend to open the
-   :guilabel:`Properties` dialog
+:guilabel:`Properties` dialog
 #. To change the lakes color:
 
    #. Click on the |symbology| :guilabel:`Symbology` tab
