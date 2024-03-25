@@ -27,7 +27,7 @@ There are two methods for percentile calculation:
 * Inclusive linear interpolation (PERCENTRANK.INC)
 * Exclusive linear interpolation (PERCENTRANK.EXC)
 
-The linear interpolation method return the unique percent rank for different values.
+The linear interpolation methods return the unique percent rank for different values.
 Both interpolation methods follow their counterpart methods implemented
 by `LibreOffice <https://help.libreoffice.org/latest/en-US/text/scalc/01/04060184.html?DbPAR=CALC#bm_id3148807>`_
 or Microsoft Excel.
@@ -118,12 +118,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``OUTPUT_NODATA_VALUE``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
 
 Outputs
 .......
@@ -281,12 +281,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``OUTPUT_NODATA_VALUE``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
 
 Outputs
 .......
@@ -446,12 +446,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``OUTPUT_NODATA_VALUE``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
 
 Outputs
 .......
@@ -615,14 +615,14 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
 
        Optional
      - ``OUTPUT_NO_DATA_VALUE``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
 
 Outputs
 .......
@@ -758,14 +758,14 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
 
        Optional
      - ``OUTPUT_NO_DATA_VALUE``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
 
 Outputs
 .......
@@ -1630,12 +1630,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``OUTPUT_NODATA_VALUE``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
 
 Outputs
 .......
@@ -1780,10 +1780,10 @@ use as a reference when creating the output raster.
 The output raster will have the same extent, CRS, and pixel dimensions
 as this layer.
 
-By default, a nodata pixel in ANY of the input layers will result in a
-nodata pixel in the output raster.
-If the :guilabel:`Treat nodata values as false` option is checked,
-then nodata inputs will be treated the same as a ``0`` input value.
+By default, a NoData pixel in ANY of the input layers will result in a
+NoData pixel in the output raster.
+If the :guilabel:`Treat NoData values as false` option is checked,
+then NoData inputs will be treated the same as a ``0`` input value.
 
 .. seealso:: :ref:`qgisrasterbooleanor`
 
@@ -1811,12 +1811,12 @@ Basic parameters
      - [raster]
      - The reference layer to create the output layer
        from (extent, CRS, pixel dimensions)
-   * - **Treat nodata values as false**
+   * - **Treat NoData values as false**
      - ``NODATA_AS_FALSE``
      - [boolean]
 
        Default: False
-     - Treat nodata values in the input files as 0 when performing the
+     - Treat NoData values in the input files as 0 when performing the
        operation
    * - **Output layer**
      - ``OUTPUT``
@@ -1842,12 +1842,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``NO_DATA``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
    * - **Output data type**
      - ``DATA_TYPE``
      - [enumeration]
@@ -1891,10 +1891,10 @@ Outputs
      - ``TOTAL_PIXEL_COUNT``
      - [integer]
      - The count of pixels in the output raster layer
-   * - **NODATA pixel count**
+   * - **NoData pixel count**
      - ``NODATA_PIXEL_COUNT``
      - [integer]
-     - The count of nodata pixels in the output raster layer
+     - The count of NoData pixels in the output raster layer
    * - **True pixel count**
      - ``TRUE_PIXEL_COUNT``
      - [integer]
@@ -1934,10 +1934,10 @@ use as a reference when creating the output raster.
 The output raster will have the same extent, CRS, and pixel dimensions
 as this layer.
 
-By default, a nodata pixel in ANY of the input layers will result in a
-nodata pixel in the output raster.
-If the :guilabel:`Treat nodata values as false` option is checked,
-then nodata inputs will be treated the same as a ``0`` input value.
+By default, a NoData pixel in ANY of the input layers will result in a
+NoData pixel in the output raster.
+If the :guilabel:`Treat NoData values as false` option is checked,
+then NoData inputs will be treated the same as a ``0`` input value.
 
 .. seealso:: :ref:`qgisrasterbooleanand`
 
@@ -1965,12 +1965,12 @@ Basic parameters
      - [raster]
      - The reference layer to create the output layer
        from (extent, CRS, pixel dimensions)
-   * - **Treat nodata values as false**
+   * - **Treat NoData values as false**
      - ``NODATA_AS_FALSE``
      - [boolean]
 
        Default: False
-     - Treat nodata values in the input files as 0 when performing the
+     - Treat NoData values in the input files as 0 when performing the
        operation
    * - **Output layer**
      - ``OUTPUT``
@@ -1996,12 +1996,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``NO_DATA``
      - [number]
 
        Default: -9999.0
-     - Value to use for nodata in the output layer
+     - Value to use for NoData in the output layer
    * - **Output data type**
      - ``DATA_TYPE``
      - [enumeration]
@@ -2045,10 +2045,10 @@ Outputs
      - ``TOTAL_PIXEL_COUNT``
      - [integer]
      - The count of pixels in the output raster layer
-   * - **NODATA pixel count**
+   * - **NoData pixel count**
      - ``NODATA_PIXEL_COUNT``
      - [integer]
-     - The count of nodata pixels in the output raster layer
+     - The count of NoData pixels in the output raster layer
    * - **True pixel count**
      - ``TRUE_PIXEL_COUNT``
      - [integer]
@@ -2072,18 +2072,20 @@ Python code
   :end-before: **end_algorithm_code_section**
 
 
-.. _qgisrastercalculator:
+.. _qgisrastercalc:
 
 Raster calculator
 -----------------
+
 Performs algebraic operations using raster layers.
 
-The resulting layer will have its values computed according to an
-expression.
+The resulting layer will have its values computed according to an expression.
 The expression can contain numerical values, operators and references
 to any of the layers in the current project.
 
-.. note:: When using the calculator in :ref:`processing_batch` or from
+.. Is this still true?
+
+  .. note:: When using the calculator in :ref:`processing_batch` or from
   the :ref:`console` the files to use have to be specified.
   The corresponding layers are referred using the base name of the
   file (without the full path).
@@ -2091,7 +2093,7 @@ to any of the layers in the current project.
   the first band of that layer will be referred as
   ``rasterfile.tif@1``.
 
-.. seealso:: :ref:`label_raster_calc`
+.. seealso:: :ref:`qgisvirtualrastercalc`, :ref:`gdalrastercalculator`, :ref:`label_raster_calc`
 
 Parameters
 ..........
@@ -2105,58 +2107,14 @@ Parameters
      - Name
      - Type
      - Description
-   * - **Layers**
-     -  GUI only
-     -
-     - Shows the list of all raster layers loaded in the legend.
-       These can be used to fill the expression box (double click to
-       add).
-       Raster layers are referred by their name and the number of the
-       band: ``layer_name@band_number``.
-       For instance, the first band from a layer named ``DEM`` will
-       be referred as ``DEM@1``.
-   * - **Operators**
-     -  GUI only
-     -
-     - Contains some calculator like buttons that can be used to fill
-       the expression box.
-   * - **Expression**
-     -  ``EXPRESSION``
-     - [string]
-     - Expression that will be used to calculate the output raster
-       layer.
-       You can use the operator buttons provided to type directly the
-       expression in this box.
-   * - **Predefined expressions**
-     - GUI only
-     -
-     - You can use the predefined ``NDVI`` expression or you can
-       define new expressions for calculations.
-       The :guilabel:`Add...` button loads a defined expression (and
-       lets you set the parameters).
-       The :guilabel:`Save...` button lets you define a new
-       expression.
-   * - **Reference layer(s) (used for automated extent, cellsize, and CRS)**
-
-       Optional
-     - ``LAYERS``
+   * - **Input layers**
+     - ``INPUT``
      - [raster] [list]
-     - Layer(s) that will be used to fetch extent, cell size and CRS.
-       By choosing the layer in this box you avoid filling in all the
-       other parameters by hand.
-       Raster layers are referred by their name and the number of
-       the band: ``layer_name@band_number``.
-       For instance, the first band from a layer named ``DEM`` will be
-       referred as ``DEM@1``.
-   * - **Cell size (use 0 or empty to set it automatically)**
-
-       Optional
-     - ``CELLSIZE``
-     - [number]
-     - Cell size of the output raster layer.
-       If the cell size is not specified, the minimum cell size of
-       the selected reference layer(s) will be used.
-       The cell size will be the same for the X and Y axes.
+     - List of input raster layers
+   * - **Expression**
+     - ``EXPRESSION``
+     - [expression]
+     - :ref:`Raster-based expression <raster_expression>` that will be used to calculate the output raster layer.
    * - **Output extent**
 
        Optional
@@ -2170,6 +2128,15 @@ Parameters
           :start-after: **extent_options**
           :end-before: **end_extent_options**
 
+   * - **Output cell size (leave empty to set automatically)**
+
+       Optional
+     - ``CELLSIZE``
+     - [number]
+     - Cell size of the output raster layer.
+       If the cell size is not specified, the minimum cell size of
+       the selected reference layer(s) will be used.
+       The cell size will be the same for the X and Y axes.
    * - **Output CRS**
 
        Optional
@@ -2178,7 +2145,7 @@ Parameters
      - CRS of the output raster layer.
        If the output CRS is not specified, the CRS of the first
        reference layer will be used.
-   * - **Output**
+   * - **Calculated**
      - ``OUTPUT``
      - [raster]
 
@@ -2200,7 +2167,7 @@ Outputs
      - Name
      - Type
      - Description
-   * - **Output**
+   * - **Calculated**
      - ``OUTPUT``
      - [raster]
      - Output raster file with the calculated values.
@@ -2208,7 +2175,111 @@ Outputs
 Python code
 ...........
 
-**Algorithm ID**: ``qgis:rastercalculator``
+**Algorithm ID**: ``native:rastercalc``
+
+.. include:: ../algs_include.rst
+  :start-after: **algorithm_code_section**
+  :end-before: **end_algorithm_code_section**
+
+
+.. _qgisvirtualrastercalc:
+
+Raster calculator (virtual)
+---------------------------
+
+Performs algebraic operations using raster layers and generates in-memory result.
+
+The resulting layer will have its values computed according to an expression.
+The expression can contain numerical values, operators and references
+to any of the layers in the current project.
+
+A virtual raster layer is a raster layer defined by its URI and whose pixels are calculated on-the-fly.
+It's not a new file on disk; the virtual layer is still connected to the rasters used in the calculation
+meaning that deleting or moving these rasters would break it.
+A :guilabel:`Layer name` can be provided, otherwise the calculation expression is used as such.
+Removing the virtual layer from the project deletes it, and it can be made persistent in file using the layer
+:menuselection:`Export --> Save as...` contextual menu.
+
+.. seealso:: :ref:`qgisrastercalc`, :ref:`gdalrastercalculator`, :ref:`label_raster_calc`
+
+Parameters
+..........
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20 20 40
+   :class: longtable
+
+   * - Label
+     - Name
+     - Type
+     - Description
+   * - **Input layers**
+     - ``INPUT``
+     - [raster] [list]
+     - List of input raster layers
+   * - **Expression**
+     - ``EXPRESSION``
+     - [expression]
+     - :ref:`Raster-based expression <raster_expression>` that will be used to calculate the output raster layer.
+   * - **Output extent**
+
+       Optional
+     - ``EXTENT``
+     - [extent]
+     - Specify the spatial extent of the output raster layer.
+       If the extent is not specified, the minimum extent that covers
+       all the selected reference layers will be used.
+
+       .. include:: ../algs_include.rst
+          :start-after: **extent_options**
+          :end-before: **end_extent_options**
+
+   * - **Output cell size (leave empty to set automatically)**
+
+       Optional
+     - ``CELLSIZE``
+     - [number]
+     - Cell size of the output raster layer.
+       If the cell size is not specified, the minimum cell size of
+       the selected reference layer(s) will be used.
+       The cell size will be the same for the X and Y axes.
+   * - **Output CRS**
+
+       Optional
+     - ``CRS``
+     - [crs]
+     - CRS of the output raster layer.
+       If the output CRS is not specified, the CRS of the first
+       reference layer will be used.
+   * - **Output layer name**
+
+       Optional
+     - ``LAYER_NAME``
+     - [string]
+     - The name to assign to the generated layer.
+       If not set, the text of the calculation expression is used.
+
+Outputs
+.......
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20 20 40
+
+   * - Label
+     - Name
+     - Type
+     - Description
+   * - **Calculated**
+     - ``OUTPUT``
+     - [raster]
+     - Output virtual raster layer with the calculated values.
+
+Python code
+...........
+
+**Algorithm ID**: ``native:virtualrastercalc``
 
 .. include:: ../algs_include.rst
   :start-after: **algorithm_code_section**
@@ -2222,7 +2293,7 @@ Raster layer properties
 
 Returns basic properties of the given raster layer, including the extent,
 size in pixels and dimensions of pixels (in map units), number of bands,
-and no data value.
+and NoData value.
 
 This algorithm is intended for use as a means of extracting these useful properties
 to use as the input values to other algorithms in a model - e.g. to allow to pass
@@ -2279,7 +2350,7 @@ Outputs
    * - **Band has a NoData value set**
      - ``HAS_NODATA_VALUE``
      - [Boolean]
-     - Indicates whether the raster layer has a value set for NODATA pixels
+     - Indicates whether the raster layer has a value set for NoData pixels
        in the selected band
    * - **Height in pixels**
      - ``HEIGHT_IN_PIXELS``
@@ -2511,10 +2582,10 @@ Outputs
      - ``HEIGHT_IN_PIXELS``
      - [integer]
      - The number of rows in the output raster layer
-   * - **NODATA pixel count**
+   * - **NoData pixel count**
      - ``NODATA_PIXEL_COUNT``
      - [number]
-     - The number of NODATA pixels in the output raster layer
+     - The number of NoData pixels in the output raster layer
    * - **Total pixel count**
      - ``TOTAL_PIXEL_COUNT``
      - [integer]
@@ -2530,7 +2601,7 @@ Outputs
        * Width in pixels: number of columns and pixel width size
        * Height in pixels: number of rows and pixel width size
        * Total pixel count: count of all the pixels
-       * NODATA pixel count: count of pixels with NODATA value
+       * NoData pixel count: count of pixels with NoData value
    * - **Unique values table**
      - ``OUTPUT_TABLE``
      - [table]
@@ -2667,10 +2738,10 @@ Outputs
      - ``HEIGHT_IN_PIXELS``
      - [integer]
      - The number of rows in the output raster layer
-   * - **NODATA pixel count**
+   * - **NoData pixel count**
      - ``NODATA_PIXEL_COUNT``
      - [number]
-     - The number of NODATA pixels in the output raster layer
+     - The number of NoData pixels in the output raster layer
    * - **Statistics**
      - ``OUTPUT_TABLE``
      - [table]
@@ -2869,16 +2940,18 @@ Basic parameters
      - ``MIN_FIELD``
      - [tablefield: numeric]
      - Field with the minimum value of the range for the class.
+       Use ``-inf`` to capture the lowest possible value.
    * - **Maximum class value field**
      - ``MAX_FIELD``
      - [tablefield: numeric]
      - Field with the maximum value of the range for the class.
+       Use ``inf`` to capture the highest possible value.
    * - **Output value field**
      - ``VALUE_FIELD``
      - [tablefield: numeric]
      - Field with the value that will be assigned to the pixels that
        fall in the class (between the corresponding min and max
-       values).
+       values). Use ``nan`` to set the value of the range to NoData. 
    * - **Reclassified raster**
      - ``OUTPUT``
      - [raster]
@@ -2902,12 +2975,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``NO_DATA``
      - [number]
 
        Default: -9999.0
-     - Value to apply to no data values.
+     - Value to apply to NoData values.
    * - **Range boundaries**
      - ``RANGE_BOUNDARIES``
      - [enumeration]
@@ -2920,12 +2993,12 @@ Advanced parameters
        * 1 --- min <= value < max
        * 2 --- min <= value <= max
        * 3 --- min < value < max
-   * - **Use no data when no range matches value**
+   * - **Use NoData when no range matches value**
      - ``NODATA_FOR_MISSING``
      - [boolean]
 
        Default: False
-     - Applies the no data value to band values that do not fall in
+     - Applies the NoData value to band values that do not fall in
        any class.
        If False, the original value is kept.
    * - **Output data type**
@@ -3004,6 +3077,8 @@ Basic parameters
      - A 3-columns table to fill with the values to set the boundaries
        of each class (``Minimum`` and ``Maximum``) and the new
        ``Value`` to assign to the band values that fall in the class.
+       The value ``-inf`` can be used as minimum, ``inf`` as maximum,
+       and ``nan`` can be used to set the output value to NoData.
    * - **Reclassified raster**
      - ``OUTPUT``
      - [raster]
@@ -3028,12 +3103,12 @@ Advanced parameters
      - Name
      - Type
      - Description
-   * - **Output no data value**
+   * - **Output NoData value**
      - ``NO_DATA``
      - [number]
 
        Default: -9999.0
-     - Value to apply to no data values.
+     - Value to apply to NoData values.
    * - **Range boundaries**
      - ``RANGE_BOUNDARIES``
      - [enumeration]
@@ -3046,12 +3121,12 @@ Advanced parameters
        * 1 --- min <= value < max
        * 2 --- min <= value <= max
        * 3 --- min < value < max
-   * - **Use no data when no range matches value**
+   * - **Use NoData when no range matches value**
      - ``NODATA_FOR_MISSING``
      - [boolean]
 
        Default: False
-     - Applies the no data value to band values that do not fall in
+     - Applies the NoData value to band values that do not fall in
        any class.
        If False, the original value is kept.
    * - **Output data type**
@@ -3102,7 +3177,7 @@ are mapped using a linear interpolation from the source raster's
 minimum and maximum pixel values to the destination minimum and miximum 
 pixel range.
 
-By default the algorithm preserves the original NODATA value, but there 
+By default the algorithm preserves the original NoData value, but there 
 is an option to override it.
 
 .. figure:: img/rescale_raster.png
@@ -3143,15 +3218,15 @@ Parameters
 
        Default value: 255.0
      - Maximum pixel value to use in the rescaled layer
-   * - **New NODATA value**
+   * - **New NoData value**
    
        Optional
      - ``NODATA``
      - [number]
      
        Default value: Not set
-     - Value to assign to the NODATA pixels.
-       If unset, original NODATA values are preserved.
+     - Value to assign to the NoData pixels.
+       If unset, original NoData values are preserved.
    * - **Rescaled**
      - ``OUTPUT``
      - [raster]

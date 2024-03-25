@@ -108,6 +108,17 @@ Entering ground control points (GCPs)
      :sup:`From map canvas` button to add the X and Y coordinates with the help of a
      georeferenced map already loaded in the QGIS map canvas. The CRS will be set
      automatically.
+   - When entering GCPs from the main map canvas, you have the option to hide 
+     the georeferencer window while selecting points from the main canvas. 
+     If the |checkbox| :guilabel:`Automatically hide georeferencer window` 
+     checkbox is ticked, after clicking |pencil| :guilabel:`From Map Canvas`, 
+     the main georeferencer window will be hidden until a point is added on the 
+     map canvas. 
+     The :guilabel:`Enter Map Coordinates` dialog will remain open. 
+     If the box is unchecked, both windows will remain open while selecting a 
+     point on the map canvas. 
+     This option only takes effect when the georeferencer window is not docked 
+     in the main interface. 
 
 #. Continue entering points. You should have at least four points, and the more
    coordinates you can provide, the better the result will be. There are
@@ -205,10 +216,10 @@ you might want to choose 'Nearest neighbour'. In contrast,
 It is possible to choose between five different resampling methods:
 
 #. Nearest neighbour
-#. Linear
-#. Cubic
-#. Cubic Spline
-#. Lanczos
+#. Bilinear (2x2 kernel)
+#. Cubic (4x4 kernel)
+#. Cubic B-Spline (4x4 kernel)
+#. Lanczos (6x6 kernel)
 
 Define the transformation settings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -221,10 +232,10 @@ raster.
   raster image actually won't be transformed. In this case, the
   :guilabel:`Output raster` field is not activated, because only a new world file will
   be created.
-* For all other transformation types, you have to define an :guilabel:`Output
-  raster`. As default, a new file ([filename]_modified) will be created in the
+* For all other transformation types, you have to define an :guilabel:`Output raster`.
+  As default, a new file ([filename]_modified) will be created in the
   same folder together with the original raster image.
-* As a next step, you have to define the :guilabel:`Target SRS` (Spatial Reference
+* As a next step, you have to define the :guilabel:`Target CRS` (Coordinate Reference
   System) for the georeferenced raster (see :ref:`label_projections`).
 * If you like, you can **generate a pdf map** and also **a pdf report**.
   The report includes information about the used transformation parameters,
@@ -235,7 +246,9 @@ raster.
 * The |checkbox| :guilabel:`Use 0 for transparency when needed` can be activated,
   if pixels with the value 0 shall be visualized transparent. In our example
   toposheet, all white areas would be transparent.
-* Finally, |checkbox| :guilabel:`Load in QGIS when done` loads the output raster
+* The |checkbox| :guilabel:`Save GCP Points` will store GCP Points in a file next 
+  to the output raster.
+* Finally, |checkbox| :guilabel:`Load in project when done` loads the output raster
   automatically into the QGIS map canvas when the transformation is done.
 
 Show and adapt raster properties
@@ -250,11 +263,19 @@ raster file that you want to georeference.
 Configure the georeferencer
 ...........................
 
-* You can define whether you want to show GCP coordinates and/or IDs.
-* As residual units, pixels and map units can be chosen.
-* For the PDF report, a left and right margin can be defined and you can also
-  set the paper size for the PDF map.
-* Finally, you can activate to |checkbox| :guilabel:`Show Georeferencer window docked`.
+You can customize the behavior of the georeferencer in :menuselection:`Settings 
+--> Configure Georeferencer` (or use keyboard shortcut :kbd:`Ctrl+P`). 
+
+* Under :guilabel:`Point Tip` you can use the checkboxes to toggle displaying GCP 
+  IDs and X/Y coordinates in both the Georeferencer window and the main map canvas. 
+* :guilabel:`Residual Units` controls whether residual units are given in pixels 
+  or map units
+* :guilabel:`PDF Report` allows you to set margin size in mm for the report export
+* :guilabel:`PDF Map` allows you to choose a paper size for the map export
+* Finally, you can activate to |checkbox| :guilabel:`Show Georeferencer window 
+  docked`. 
+  This will dock the Georeferencer window in the main QGIS window rather than 
+  showing it as a separate window that can be minimized. 
 
 .. _`georeferencer_running`:
 

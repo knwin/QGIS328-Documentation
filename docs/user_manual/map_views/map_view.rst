@@ -214,6 +214,10 @@ The :guilabel:`Temporal controller` panel has the following modes:
 * |temporalNavigationAnimated| :sup:`Animated temporal navigation`:
   a time range is set, split into steps, and only layers (or features)
   whose temporal range overlaps with each frame are displayed on the map
+* |temporalNavigationMovie| :sup:`Animated movie`:
+  a total number of frames is set for the animation, with the map settings
+  advancing at each step, displaying the progression frame by frame without
+  any time-based filtering of data.
 * |settings| :sup:`Settings` for general control of the animation
 
   * :guilabel:`Frames rate`: number of steps that are shown per second
@@ -626,11 +630,8 @@ Scale Bar
 
 |scaleBar| :guilabel:`Scale Bar` adds a simple scale bar to the map canvas.
 You can control the style and placement, as well as the labelling of the bar.
-
-QGIS only supports displaying the scale in the same units as your map frame.
-So, if the units of your project's CRS are meters, you can't create a scale bar in
-feet. Likewise, if you are using decimal degrees, you can't create a scale
-bar to display distance in meters.
+The scale bar respects the active :ref:`project's distance unit <measurements_ellipsoid>`
+as defined in :menuselection:`Project properties --> General --> Units for distance measurement`.
 
 To add a scale bar:
 
@@ -651,9 +652,9 @@ To add a scale bar:
    bar fill and outline can be made opaque by clicking on the down arrow to the right
    of the color input.
 #. Select the font for the scale bar from the :guilabel:`Font of bar` |selectString| combo box
-#. Set the :guilabel:`Size of bar` |selectNumber|
-#. Optionally check |checkbox| :guilabel:`Automatically snap to round number
-   on resize` to display easy-to-read values
+#. Set the :guilabel:`Size of bar` in the active unit
+#. Optionally check |checkbox| :guilabel:`Automatically snap to round number on resize`
+   to display easy-to-read values
 #. Choose the placement from the :guilabel:`Placement` |selectString| combo box
 #. You can refine the placement of the item by setting a horizontal and/or vertical
    `Margin from (Canvas) Edge`. These values can be in **Millimeters** or
@@ -765,6 +766,9 @@ with both families of annotations.
  | |addMarker| :sup:`Create Marker Annotation`         | Create an annotation as a point feature                             |                     |
  +-----------------------------------------------------+---------------------------------------------------------------------+                     +
  | |actionText| :sup:`Create Text Annotation at Point` | Create an annotation as a text label                                |                     |
+ +-----------------------------------------------------+---------------------------------------------------------------------+                     +
+ | |textAlongLine| :sup:`Create Text Annotation along  | Create an annotation as a curved text along a linestring            |                     |
+ | Line`                                               |                                                                     |                     |
  +-----------------------------------------------------+---------------------------------------------------------------------+---------------------+
  | |textAnnotation| :sup:`Text Annotation`             | Select and create a text formatted annotation                       | Balloon annotations |
  +-----------------------------------------------------+---------------------------------------------------------------------+                     +
@@ -774,8 +778,6 @@ with both families of annotations.
  +-----------------------------------------------------+---------------------------------------------------------------------+                     +
  | |formAnnotation| :sup:`Form Annotation`             | Select and create annotation showing attributes of a vector layer   |                     |
  |                                                     | in a custom form file                                               |                     |
- +-----------------------------------------------------+---------------------------------------------------------------------+                     +
- | |annotation| :sup:`Move Annotation`                 | Adjust size and position of annotation element                      |                     |
  +-----------------------------------------------------+---------------------------------------------------------------------+---------------------+
 
 .. _annotation_layer:
@@ -805,57 +807,6 @@ Two types of annotation layer are available in QGIS:
   The :guilabel:`Main Annotation Layer Properties` entry on
   the :guilabel:`Annotations` toolbar helps you open its properties dialog.
 
-Interaction
-...........
-
-The Feature annotations have dedicated tools for creation depending on their type:
-
-* |addPolygon| :sup:`Create Polygon Annotation`
-* |addPolyline| :sup:`Create Line Annotation`
-* |addMarker| :sup:`Create Marker Annotation`
-* |actionText| :sup:`Create Text Annotation at Point`
-
-All the usual QGIS shortcuts for creating features apply when creating annotation
-items. A line or polygon annotation is drawn by left-clicking once for each vertex,
-with a final right mouse click to complete the shape. Snapping can be enabled
-while you draw, you can use the :guilabel:`Advanced Digitizing Tools` to precisely
-place vertices, and even switch the :ref:`drawing tools <drawing_methods>`
-to the streaming mode for completely free-form shapes.
-
-Unlike common layers, an annotation layer does not need to be active before you
-select its features. Simply grab the |select| :sup:`Modify Annotations` tool and
-you will be able to interact with any feature annotation:
-
-* **Selection**: simply left-click on the annotation
-* **Moving**: Left click on a selected annotation item to start moving it.
-  A right-click or pressing :kbd:`Esc` key cancels the move, while a second
-  left click will confirm the move.
-  The displacement can also be controlled pressing the cursor keys:
-
-  * :kbd:`Shift+key` for big movement
-  * :kbd:`Alt+key` for ``1 px`` movement
-* **Geometry modification**: for line or polygon annotations, left-click on
-  a vertex of the geometry, move and click again.
-  Double-click a segment to add a new vertex.
-* **Delete**: Pressing the :kbd:`Del` or :kbd:`Backspace` key while
-  an annotation is selected will delete that annotation
-* :ref:`Change feature symbology <annotation_feature_symbology>`
-
-.. _annotation_feature_symbology:
-
-Feature symbology
-.................
-
-A selected annotation will display its :guilabel:`Symbology` properties
-in the :guilabel:`Layer styling` panel. You can:
-
-* modify the appearance using full capabilities of the :ref:`symbol
-  <symbol-selector>` or the :ref:`text format <text_format>` (including the text
-  itself), depending on the type.
-* configure a :guilabel:`Reference scale`
-* set a :guilabel:`Z index`
-* modify some of the :guilabel:`Layer rendering` settings
-
 Layer Properties
 ................
 
@@ -863,6 +814,8 @@ The properties dialog of an annotation layer provides the following tabs:
 
 * :guilabel:`Information`: a read-only dialog representing an interesting
   place to quickly grab summarized information and metadata on the current layer.
+  This may include the layer extent, count of items per annotation type and total count,
+  CRS details, ...
 * :guilabel:`Source`: defines general settings for the annotation layer. You can:
 
   * Set a :guilabel:`Layer name` that will be used to identify the layer
@@ -872,6 +825,8 @@ The properties dialog of an annotation layer provides the following tabs:
     in the drop-down list or clicking on |setProjection| :sup:`Select CRS` button
     (see :ref:`crs_selector`). Use this process only if the CRS applied to the
     layer is a wrong one or if none was applied.
+
+.. _annotationslayer_rendering:
 
 * :guilabel:`Rendering`:
 
@@ -895,6 +850,77 @@ The properties dialog of an annotation layer provides the following tabs:
   Some of these options are accessible from the feature annotation
   :guilabel:`Symbology` properties.
 
+Interacting with features
+.........................
+
+The Feature annotations have dedicated tools for creation depending on their type:
+
+* |addPolygon| :sup:`Create Polygon Annotation`
+* |addPolyline| :sup:`Create Line Annotation`
+* |addMarker| :sup:`Create Marker Annotation`
+* |actionText| :sup:`Create Text Annotation at Point`
+* |textAlongLine| :sup:`Create Text Annotation along Line`
+
+All the usual QGIS shortcuts for creating features apply when creating annotation
+items. A line or polygon annotation is drawn by left-clicking once for each vertex,
+with a final right mouse click to complete the shape. Snapping can be enabled
+while you draw, you can use the :guilabel:`Advanced Digitizing Tools` to precisely
+place vertices, and even switch the :ref:`drawing tools <drawing_methods>`
+to the streaming mode for completely free-form shapes.
+
+Unlike common layers, an annotation layer does not need to be active before you
+select its features. Simply grab the |select| :sup:`Modify Annotations` tool and
+you will be able to interact with any feature annotation:
+
+* **Selection**: left-click on the annotation.
+  By default, annotations are rendered in the order of creation,
+  meaning that recent annotations will be placed on top of older.
+  You may need to play with the Z-index property of features in order to select
+  ones they would sit above.
+* **Moving**: Left click on a selected annotation item to start moving it.
+  A right-click or pressing :kbd:`Esc` key cancels the move, while a second
+  left click will confirm the move.
+  The displacement can also be controlled pressing the cursor keys:
+
+  * :kbd:`Shift+key` for big movement
+  * :kbd:`Alt+key` for ``1 px`` movement
+* **Geometry modification**: for line or polygon annotations, left-click on
+  a vertex of the geometry, move and click again.
+  Double-click a segment to add a new vertex.
+* **Delete**: Pressing the :kbd:`Del` or :kbd:`Backspace` key while
+  an annotation is selected will delete that annotation
+* :ref:`Change feature symbology <annotation_feature_symbology>`
+
+.. _annotation_feature_symbology:
+
+Feature symbology
+.................
+
+A selected annotation will display its :guilabel:`Symbology` properties
+in the :guilabel:`Layer styling` panel. You can:
+
+* Modify the appearance using full capabilities of:
+
+  * the :ref:`symbol properties <symbol-selector>` for polygon, polyline and marker annotations
+  * the :ref:`text format properties <text_format>` for text-based annotations.
+    A text area allows you to construct the string to display using QGIS expression functions.
+    It is also possible to set the :guilabel:`Alignment` for text annotation at point
+    (left, center or right of the text point).
+* For text annotation at point, also configure whether it should :guilabel:`Ignore map rotation`
+  or :guilabel:`Rotate with map`.
+  In both cases, a custom :guilabel:`Angle` can be set for the feature orientation.
+* For text annotation along a line, configure an :guilabel:`Offset from line` in the unit
+  of your choice
+* Configure a |unchecked| :guilabel:`Reference scale`: indicates the map scale
+  at which symbol or text sizes which uses paper-based units (such as millimeters or points) relate to.
+  The sizes will be scaled accordingly whenever the map is viewed at a different scale.
+  For instance, a line feature wide of 2mm at 1:2000 :guilabel:`Reference scale`
+  will be rendered using 4mm when the map is viewed at 1:1000.
+* Set a :guilabel:`Z-index`: a feature with a higher index is placed on top of
+  features with lower index.
+  A convenient setting for both feature display and selection.
+* Modify some of the :ref:`Layer rendering <annotationslayer_rendering>` settings
+
 .. _balloon_annotations:
 
 Balloon annotations
@@ -916,9 +942,6 @@ menu or from the :guilabel:`Annotations Toolbar`:
 .. raw:: html
 
   <p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/0pDBuSbQ02o?start=145" title="Working with annotations" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-
-* |annotation| :sup:`Move Annotation` to adjust annotation element size or position
-  (using click and drag)
 
 .. _figure_custom_annotation:
 
@@ -956,18 +979,18 @@ options. This dialog is almost the same for all the annotation types:
 
    A ballon annotation text dialog
 
-Annotations can be selected when an annotation tool is enabled. They can then be
-moved by map position (by dragging the map marker) or by moving only the balloon.
-The |annotation| :sup:`Move Annotation` tool also allows you to move the
-balloon on the map canvas.
+When a balloon annotation tool is active, you can also:
 
-To delete an annotation, select it and either press the :kbd:`Del` or :kbd:`Backspace`
-button, or double-click it and press the :guilabel:`Delete` button in the properties dialog.
+* Select an annotation
+* Resize an annotation
+* Move an annotation by map position (by dragging the map marker) or by moving only the balloon.
+* Delete an annotation: select it and either press the :kbd:`Del` or :kbd:`Backspace` button,
+  or double-click it and press the :guilabel:`Delete` button in the properties dialog.
+* Right-click and in the contextual menu:
 
-.. note::
-   If you press :kbd:`Ctrl+T` while a balloon :guilabel:`Annotation` tool (move annotation,
-   text annotation, form annotation) is active, the visibility states of the items
-   are inverted.
+  * |editCopy| :guilabel:`Copy coordinate` of the annotation's map marker in various CRS
+  * |toggleEditing| :guilabel:`Edit` properties of the annotation. Same as double-clicking the annotation.
+  * |deleteSelected| :guilabel:`Delete` the annotation
 
 
 .. index::
@@ -1031,11 +1054,12 @@ measurements can be done in |radioButtonOn| :guilabel:`Cartesian` or
    :menuselection:`Project --> Properties... --> General` menu, and by the
    selection made in the measurement widget.
 
-All measuring modules use the snapping settings from the digitizing module (see
-section :ref:`snapping_tolerance`). So, if you want
-to measure exactly along a line feature, or around a polygon feature, first set
-its layer snapping tolerance. Now, when using the measuring
-tools, each mouse click (within the tolerance setting) will snap to that layer.
+All measuring modules use the snapping settings from the digitizing module
+(see section :ref:`snapping_tolerance`).
+So, if you want to measure exactly along a line feature, or around a polygon feature,
+first set its layer snapping tolerance.
+Now, when using the measuring tools, each mouse click (within the tolerance setting)
+will snap to that layer.
 
 .. index::
    single: Measure; Distances
@@ -1043,24 +1067,25 @@ tools, each mouse click (within the tolerance setting) will snap to that layer.
    single: Measure; Angles
 
 The |measure| :sup:`Measure Line` measures distances between given points.
-The tool then allows you to click points on the map. Each segment length,
-as well as the total, shows up in the measure window.
-To stop measuring, click the right mouse button. Now it is possible
-to copy all your line measurements at once to the clipboard using the
-:guilabel:`Copy All` button.
+The tool then allows you to click points on the map.
+Each segment length, as well as the total, shows up in the measure window.
+In the measure window, you will see coordinates for all your points and distances.
+Keep in mind that the first row will contain only coordinates, as it represents your starting point.
+Now it is possible to copy all your line measurements at once to the clipboard
+using the :guilabel:`Copy` button. Clicking the :guilabel:`Configuration` button
+you will access to :guilabel:`Measure Tool Copy Settings` where you can set up 
+:ref:`copy options <measure_copy_settings>`. To stop measuring, click the right
+mouse button.
 
-Note that you can use the drop-down list near the total to change
-the measurement units interactively while working with the measure tool ('Meters', 'Kilometers', 'Feet', 'Yards',
-'Miles', 'Nautical miles', 'Centimeters', 'Millimeters', 'Degrees', 'Map units').
-This unit is retained for the widget until a new project is created or another project
-is opened.
+Note that you can use the drop-down list near the total
+to change the :ref:`measurement units <measurements_ellipsoid>`
+interactively while working with the measure tool.
+This unit is retained for the widget until a new project is created
+or another project is opened.
 
 The :guilabel:`Info` section in the dialog explains how calculations are made
 according to the CRS settings available.
 
-.. %FixMe: currently, validating the Settings --> Options dialog revert any change
-   made on units in the measurement dialog (see https://issues.qgis.org/issues/15436
-   bug or not? should it be documented?)
 
 .. _figure_measure_length:
 
@@ -1072,9 +1097,7 @@ according to the CRS settings available.
 |measureArea| :sup:`Measure Area`: Areas can also be measured. In the
 measure window, the accumulated area size appears. Right-click to stop drawing.
 The Info section is also available as well as the ability to switch between
-different area units ('Square meters', 'Square kilometers', 'Square feet', 'Square yards',
-'Square miles', 'Hectares', 'Acres', 'Square centimeters',
-'Square millimeters', 'Square nautical miles', 'Square degrees', 'Map units').
+different :ref:`area units <measurements_ellipsoid>`.
 
 .. _figure_measure_area:
 
@@ -1083,10 +1106,11 @@ different area units ('Square meters', 'Square kilometers', 'Square feet', 'Squa
 
    Measure Area
 
-|measureBearing| :sup:`Measure Bearing`: You can also measure bearings. The
-cursor becomes cross-shaped. Click to draw the first point of the bearing,
-then move the cursor to draw the second point. The measurement
-is displayed in a pop-up dialog.
+|measureBearing| :sup:`Measure Bearing`: You can also measure bearings.
+The cursor becomes cross-shaped.
+Click to draw the first point of the bearing,
+then move the cursor to draw the second point.
+The measurement is displayed in a pop-up dialog.
 
 .. _figure_measure_bearing:
 
@@ -1095,10 +1119,11 @@ is displayed in a pop-up dialog.
 
    Measure Bearing
 
-|measureAngle| :sup:`Measure Angle`: You can also measure angles. The
-cursor becomes cross-shaped. Click to draw the first segment of the angle you
-wish to measure, then move the cursor to draw the desired angle. The measurement
-is displayed in a pop-up dialog.
+|measureAngle| :sup:`Measure Angle`: You can also measure angles.
+The cursor becomes cross-shaped.
+Click to draw the first segment of the angle you wish to measure,
+then move the cursor to draw the desired angle.
+The measurement is displayed in a pop-up dialog.
 
 .. _figure_measure_angle:
 
@@ -1290,8 +1315,6 @@ In the dialog that opens:
    :width: 1.5em
 .. |addPolyline| image:: /static/common/mActionAddPolyline.png
    :width: 1.5em
-.. |annotation| image:: /static/common/mActionAnnotation.png
-   :width: 1.5em
 .. |calculateField| image:: /static/common/mActionCalculateField.png
    :width: 1.5em
 .. |checkbox| image:: /static/common/checkbox.png
@@ -1351,8 +1374,6 @@ In the dialog that opens:
 .. |select| image:: /static/common/mActionSelect.png
    :width: 1.5em
 .. |selectColor| image:: /static/common/selectcolor.png
-.. |selectNumber| image:: /static/common/selectnumber.png
-   :width: 2.8em
 .. |selectString| image:: /static/common/selectstring.png
    :width: 2.5em
 .. |setProjection| image:: /static/common/mActionSetProjection.png
@@ -1377,11 +1398,17 @@ In the dialog that opens:
    :width: 1.5em
 .. |temporalNavigationFixedRange| image:: /static/common/mTemporalNavigationFixedRange.png
    :width: 1.5em
+.. |temporalNavigationMovie| image:: /static/common/mTemporalNavigationMovie.png
+   :width: 1.5em
 .. |temporalNavigationOff| image:: /static/common/mTemporalNavigationOff.png
+   :width: 1.5em
+.. |textAlongLine| image:: /static/common/mActionTextAlongLine.png
    :width: 1.5em
 .. |textAnnotation| image:: /static/common/mActionTextAnnotation.png
    :width: 1.5em
 .. |titleLabel| image:: /static/common/title_label.png
+   :width: 1.5em
+.. |toggleEditing| image:: /static/common/mActionToggleEditing.png
    :width: 1.5em
 .. |unchecked| image:: /static/common/unchecked.png
    :width: 1.3em

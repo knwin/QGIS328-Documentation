@@ -42,6 +42,9 @@ At the top of the :guilabel:`Elevation Profile` panel, a toolbar provides you wi
    * - Tool
      - Shorcut
      - Description
+   * - |addLayer| :sup:`Add Layers`
+     - hold :kbd:`Ctrl` while drag-and-drop
+     - Allows you to add new layers to a plot. 
    * - |layerTree| :sup:`Show Layer Tree`
      -
      - Shows or hides a list of project layers to configure rendering in the profile view.
@@ -92,9 +95,25 @@ At the top of the :guilabel:`Elevation Profile` panel, a toolbar provides you wi
    * - |saveMapAsImage| :sup:`Export As Image`
      -
      - Exports plots to several image formats
-   * - |options| :sup:`Options`
+   * - |fileSaveAs| :sup:`Export Results`
+     -
+     - Exports plots as 3D features, 2D Profile and Distance/Elevation Table.
+       (The results can be saved as DXF files, CSV files or any of the standard
+       writable vector spatial formats)
+   * - |options| :sup:`Options` :menuselection:`-->`
      -
      - Provides access to configuration settings of the profile elevation line.
+   * -  :menuselection:`-->` |unchecked| :menuselection:`Lock distance/elevation scales`
+     -
+     - Ensures that the horizontal and vertical scales are always kept equal
+       (so that e.g. a 45° slope will appear as a 45° slope in the profile view).
+   * - :menuselection:`--> Distance units`
+     -
+     - Allows to render distances in the profile chart with units other than the map canvas units.
+   * - :menuselection:`--> Tolerance`
+     -
+     - Sets how far from the actual profile line a point can reside within to be included in the results.
+       Uses the map units and is ignored by other layer or geometry types.
    * - |dock| :sup:`Dock Elevation Profile View`
      -
      - Switch between docked and floating status of the view
@@ -146,6 +165,16 @@ To create a profile view, you can:
 #. The next step is to configure the elevation properties of the layers you want to visualize.
 
    #. Push on the |layerTree| :sup:`Show Layer Tree` button to display the list of layers.
+      By default, not all the layers of the project are loaded and referenced in the profile tool;
+      e.g., raster layers which are not marked as having elevation data in their properties are ignored.
+      Clicking the |addLayer| :sup:`Add layers` button will show a filtered list of possible layers
+      which can be added to the plot, but which currently aren't in the plot.
+      Applying the dialog with selected layers will automatically mark them as having elevation data
+      and immediately add them to the plot.
+
+      .. tip:: Holding :kbd:`Ctrl` key, it is possible to drag and drop additional layers
+        from the main layer tree to one in the elevation profile tool.
+
    #. Toggle visibility of the layers you are interested in.
       These are the only ones rendered in the profile view
       and selected layers can be different from the main :guilabel:`Layers` panel's.
@@ -233,6 +262,8 @@ For more details, give a look to `QGIS elevation profile/cross section tool -- a
    please add it also to the substitutions.txt file in the
    source folder.
 
+.. |addLayer| image:: /static/common/mActionAddLayer.png
+   :width: 1.5em
 .. |arrowLeft| image:: /static/common/mActionArrowLeft.png
    :width: 1.2em
 .. |arrowRight| image:: /static/common/mActionArrowRight.png
@@ -244,6 +275,8 @@ For more details, give a look to `QGIS elevation profile/cross section tool -- a
 .. |clearConsole| image:: /static/common/iconClearConsole.png
    :width: 1.5em
 .. |dock| image:: /static/common/dock.png
+   :width: 1.5em
+.. |fileSaveAs| image:: /static/common/mActionFileSaveAs.png
    :width: 1.5em
 .. |identify| image:: /static/common/mActionIdentify.png
    :width: 1.5em
@@ -265,6 +298,8 @@ For more details, give a look to `QGIS elevation profile/cross section tool -- a
    :width: 1.5em
 .. |snapping| image:: /static/common/mIconSnapping.png
    :width: 1.5em
+.. |unchecked| image:: /static/common/unchecked.png
+   :width: 1.3em
 .. |zoomFullExtent| image:: /static/common/mActionZoomFullExtent.png
    :width: 1.5em
 .. |zoomIn| image:: /static/common/mActionZoomIn.png

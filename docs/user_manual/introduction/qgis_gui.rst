@@ -130,6 +130,10 @@ The :menuselection:`Project` menu provides access and exit points for
      - :kbd:`Alt+J` + :kbd:`R`
      -
      - :ref:`sec_projects`
+   * - :menuselection:`--> Clear List`
+     -
+     -
+     - :ref:`sec_projects` 
    * - :guilabel:`Close`
      -
      -
@@ -951,7 +955,7 @@ copy or paste layer properties (style, scale, CRS...).
      -
      - :guilabel:`Data Source Manager`
      - :ref:`vector_create_mesh`
-   * - :menuselection:`-->` |createGPX|
+   * - :menuselection:`-->` |newGpx|
        :guilabel:`New GPX Layer...`
      -
      - :guilabel:`Data Source Manager`
@@ -1170,11 +1174,11 @@ copy or paste layer properties (style, scale, CRS...).
    * - :guilabel:`Layer Properties...`
      -
      -
-     - :ref:`vector_properties_dialog`,
-       :ref:`raster_properties_dialog`,
-       :ref:`label_meshproperties`,
-       :ref:`point_clouds_properties`,
-       :ref:`vectortiles_properties`
+     - * :ref:`vector <vector_properties_dialog>`
+       * :ref:`raster <raster_properties_dialog>`
+       * :ref:`mesh <label_meshproperties>`
+       * :ref:`point cloud <point_clouds_properties>`
+       * :ref:`vector tiles <vectortiles_properties>`
    * - :guilabel:`Filter...`
      - :kbd:`Ctrl+F`
      -
@@ -1514,10 +1518,10 @@ are enabled.
      -
      -
      - :ref:`label_raster_calc`
-   * - :guilabel:`Align Raster...`
+   * - :guilabel:`Align Rasters...`
      -
      -
-     - :ref:`label_raster_align`
+     - :ref:`qgisalignrasters`
    * - :menuselection:`Analysis -->`
      -
      -
@@ -1918,6 +1922,7 @@ Available toolbars are:
    ":guilabel:`Data Source Manager`", ":ref:`manage_data_source`"
    ":guilabel:`Database`", ":ref:`dbmanager`"
    ":guilabel:`Digitizing`", ":ref:`sec_edit_existing_layer`"
+   ":guilabel:`GPS`", ":ref:`sec_gpstracking`"
    ":guilabel:`GRASS`", ":ref:`sec_grass`"
    ":guilabel:`Help`"
    ":guilabel:`Label`", ":ref:`label_toolbar`"
@@ -2288,8 +2293,6 @@ processes (QGIS startup, plugins loading, processing tools...)
    :width: 1.5em
 .. |copyrightLabel| image:: /static/common/copyright_label.png
    :width: 1.5em
-.. |createGPX| image:: /static/common/create_gpx.png
-   :width: 1.5em
 .. |createGrid| image:: /static/common/mAlgorithmCreateGrid.png
    :width: 1.5em
 .. |createMemory| image:: /static/common/mActionCreateMemory.png
@@ -2454,6 +2457,8 @@ processes (QGIS startup, plugins loading, processing tools...)
 .. |newElevationProfile| image:: /static/common/mActionNewElevationProfile.png
    :width: 1.5em
 .. |newGeoPackageLayer| image:: /static/common/mActionNewGeoPackageLayer.png
+   :width: 1.5em
+.. |newGpx| image:: /static/common/mActionNewGpx.png
    :width: 1.5em
 .. |newLayout| image:: /static/common/mActionNewLayout.png
    :width: 1.5em

@@ -99,14 +99,17 @@ Icon                            Substitution                        Icon        
 |addVirtualLayer|               ``|addVirtualLayer|``               |addWmsLayer|                   ``|addWmsLayer|``
 |addWcsLayer|                   ``|addWcsLayer|``                   |addWfsLayer|                   ``|addWfsLayer|``
 |addPointCloudLayer|            ``|addPointCloudLayer|``            |addGpsLayer|                   ``|addGpsLayer|``
+|addTiledSceneLayer|            ``|addTiledSceneLayer|``            |addHanaLayer|                  ``|addHanaLayer|``
 |newVectorLayer|                ``|newVectorLayer|``                |newSpatiaLiteLayer|            ``|newSpatiaLiteLayer|``
 |newGeoPackageLayer|            ``|newGeoPackageLayer|``            |createMemory|                  ``|createMemory|``
 |newVirtualLayer|               ``|newVirtualLayer|``               |newMeshLayer|                  ``|newMeshLayer|``
+|newGpx|                        ``|newGpx|``
 |dbManager|                     ``|dbManager|``                     |gdal|                          ``|gdal|``
 |geoPackage|                    ``|geoPackage|``                    |spatialite|                    ``|spatialite|``
 |virtualLayer|                  ``|virtualLayer|``                  |wms|                           ``|wms|``
 |wcs|                           ``|wcs|``                           |wfs|                           ``|wfs|``
 |pointCloudLayer|               ``|pointCloudLayer|``               |gps|                           ``|gps|``
+|tiledSceneLayer|               ``|tiledSceneLayer|``               |hana|                          ``|hana|``
 |dbSchema|                      ``|dbSchema|``
 |inOverview|                    ``|inOverview|``                    |addAllToOverview|              ``|addAllToOverview|``
 |removeAllFromOverview|         ``|removeAllFromOverview|``         |removeLayer|                   ``|removeLayer|``
@@ -180,6 +183,9 @@ Icon                             Substitution                          Icon     
 |floater|                        ``|floater|``
 |toggleEditing|                  ``|toggleEditing|``                   |allEdits|                        ``|allEdits|``
 |tracing|                        ``|tracing|``                         |snapping|                        ``|snapping|``
+|snappingVertex|                 ``|snappingVertex|``                  |snappingSegment|                 ``|snappingSegment|``
+|snappingArea|                   ``|snappingArea|``                    |snappingCentroid|                ``|snappingCentroid|``
+|snappingMiddle|                 ``|snappingMiddle|``                  |snappingEndpoint|                ``|snappingEndpoint|``
 |capturePoint|                   ``|capturePoint|``                    |capturePolygon|                  ``|capturePolygon|``
 |captureLine|                    ``|captureLine|``                     |captureCurveFromFeature|         ``|captureCurveFromFeature|``
 |deleteSelectedFeatures|         ``|deleteSelectedFeatures|``
@@ -237,9 +243,10 @@ Icon                            Substitution                        Icon        
 |newMap|                        ``|newMap|``                        |new3DMap|                      ``|new3DMap|``
 |tiltUp|                        ``|tiltUp|``                        |tiltDown|                      ``|tiltDown|``
 |3dNavigation|                  ``|3dNavigation|``                  |play|                          ``|play|``
+|camera|                        ``|camera|``                        |shadow|                        ``|shadow|``
 |temporal|                      ``|temporal``                       |temporalNavigationOff|         ``|temporalNavigationOff|``
 |temporalNavigationFixedRange|  ``|temporalNavigationFixedRange|``  |temporalNavigationAnimated|    ``|temporalNavigationAnimated|``
-|newElevationProfile|           ``|newElevationProfile|``
+|temporalNavigationMovie|       ``|temporalNavigationMovie|``       |newElevationProfile|           ``|newElevationProfile|``
 ==============================  ==================================  ==============================  ==================================
 
 Selection and Expressions
@@ -277,9 +284,9 @@ Icon                     Substitution                 Icon                     S
 |text|                   ``|text|``                   |histogram|              ``|histogram|``
 |stackedBar|             ``|stackedBar|``
 |createAnnotationLayer|  ``|createAnnotationLayer|``  |annotationLayer|        ``|annotationLayer|``
-|annotation|             ``|annotation|``             |textAnnotation|         ``|textAnnotation|``
+|textAnnotation|         ``|textAnnotation|``         |svgAnnotation|          ``|svgAnnotation|``
 |formAnnotation|         ``|formAnnotation|``         |htmlAnnotation|         ``|htmlAnnotation|``
-|svgAnnotation|          ``|svgAnnotation|``          |actionText|             ``|actionText|``
+|actionText|             ``|actionText|``             |textAlongLine|          ``|textAlongLine|``
 |labelbackground|        ``|labelbackground|``        |labelbuffer|            ``|labelbuffer|``
 |labelformatting|        ``|labelformatting|``        |labelplacement|         ``|labelplacement|``
 |labelshadow|            ``|labelshadow|``            |render|                 ``|render|``
@@ -339,7 +346,10 @@ Icon                            Substitution                        Icon        
 |interfaceCustomization|        ``|interfaceCustomization|``        |keyboardShortcuts|             ``|keyboardShortcuts|``
 |copyrightLabel|                ``|copyrightLabel|``                |northArrow|                    ``|northArrow|``
 |scaleBar|                      ``|scaleBar|``                      |tracking|                      ``|tracking|``
-|gpsImporter|                   ``|gpsImporter|``                   |gpsTrackBarChart|              ``|gpsTrackBarChart|``
+|gpsTrackBarChart|              ``|gpsTrackBarChart|``
+|gpsConnect|                    ``|gpsConnect|``                    |gpsDisconnect|                 ``|gpsDisconnect|``
+|gpsDestinationLayer|           ``|gpsDestinationLayer|``           |addTrackPoint|                 ``|addTrackPoint|``
+|recenter|                      ``|recenter|``                      |reset|                         ``|reset|``
 |folder|                        ``|folder|``                        |extents|                       ``|extents|``
 |settings|                      ``|settings|``                      |start|                         ``|start|``
 |properties|                    ``|properties|``                    |deleteSelected|                ``|deleteSelected|``
@@ -607,6 +617,8 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |addGrid| image:: /static/common/add_grid.png
    :width: 1.5em
+.. |addHanaLayer| image:: /static/common/mActionAddHanaLayer.png
+   :width: 1.5em
 .. |addHtml| image:: /static/common/mActionAddHtml.png
    :width: 1.5em
 .. |addImage| image:: /static/common/mActionAddImage.png
@@ -649,7 +661,11 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |addTable| image:: /static/common/mActionAddTable.png
    :width: 1.5em
+.. |addTiledSceneLayer| image:: /static/common/mActionAddTiledSceneLayer.png
+   :width: 1.5em
 .. |addToProject| image:: /static/common/mAddToProject.png
+   :width: 1.5em
+.. |addTrackPoint| image:: /static/common/mActionAddTrackPoint.png
    :width: 1.5em
 .. |addVectorTileLayer| image:: /static/common/mActionAddVectorTileLayer.png
    :width: 1.5em
@@ -678,8 +694,6 @@ Icon                            Substitution                        Icon        
 .. |allEdits| image:: /static/common/mActionAllEdits.png
    :width: 1.5em
 .. |allowIntersections| image:: /static/common/mActionAllowIntersections.png
-   :width: 1.5em
-.. |annotation| image:: /static/common/mActionAnnotation.png
    :width: 1.5em
 .. |annotationLayer| image:: /static/common/mIconAnnotationLayer.png
    :width: 1.5em
@@ -721,6 +735,8 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |calculateField| image:: /static/common/mActionCalculateField.png
    :width: 1.5em
+.. |camera| image:: /static/common/mIconCamera.png
+   :width: 1.5em
 .. |captureCurveFromFeature| image:: /static/common/mActionCaptureCurveFromFeature.png
    :width: 1.5em
 .. |captureLine| image:: /static/common/mActionCaptureLine.png
@@ -756,7 +772,7 @@ Icon                            Substitution                        Icon        
 .. |clearConsole| image:: /static/common/iconClearConsole.png
    :width: 1.5em
 .. |clearItem| image:: /static/common/mIconClearItem.png
-   :width: 1.5em   
+   :width: 1.5em
 .. |clip| image:: /static/common/mAlgorithmClip.png
    :width: 1.5em
 .. |codeEditor| image:: /static/common/mIconCodeEditor.png
@@ -971,7 +987,11 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |gps| image:: /static/common/mIconGps.png
    :width: 1.5em
-.. |gpsImporter| image:: /static/common/gps_importer.png
+.. |gpsConnect| image:: /static/common/mIconGpsConnect.png
+   :width: 1.5em
+.. |gpsDestinationLayer| image:: /static/common/mIconGpsDestinationLayer.png
+   :width: 1.5em
+.. |gpsDisconnect| image:: /static/common/mIconGpsDisconnect.png
    :width: 1.5em
 .. |gpsTrackBarChart| image:: /static/common/gpstrack_barchart.png
    :width: 1.5em
@@ -994,6 +1014,8 @@ Icon                            Substitution                        Icon        
 .. |groupItems| image:: /static/common/mActionGroupItems.png
    :width: 1.5em
 .. |hamburgerMenu| image:: /static/common/mIconHamburgerMenu.png
+   :width: 1.5em
+.. |hana| image:: /static/common/mIconHana.png
    :width: 1.5em
 .. |handleStoreFilterExpressionChecked| image:: /static/common/mActionHandleStoreFilterExpressionChecked.png
    :width: 1.5em
@@ -1238,6 +1260,8 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |newGeoPackageLayer| image:: /static/common/mActionNewGeoPackageLayer.png
    :width: 1.5em
+.. |newGpx| image:: /static/common/mActionNewGpx.png
+   :width: 1.5em
 .. |newLayout| image:: /static/common/mActionNewLayout.png
    :width: 1.5em
 .. |newMap| image:: /static/common/mActionNewMap.png
@@ -1372,6 +1396,8 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |rasterize| image:: /static/common/rasterize.png
    :width: 1.5em
+.. |recenter| image:: /static/common/mActionRecenter.png
+   :width: 1.5em
 .. |rectangle3PointsDistance| image:: /static/common/mActionRectangle3PointsDistance.png
    :width: 1.5em
 .. |rectangle3PointsProjected| image:: /static/common/mActionRectangle3PointsProjected.png
@@ -1401,6 +1427,8 @@ Icon                            Substitution                        Icon        
 .. |render| image:: /static/common/render.png
    :width: 1.5em
 .. |rendering| image:: /static/common/rendering.png
+   :width: 1.5em
+.. |reset| image:: /static/common/mActionReset.png
    :width: 1.5em
 .. |reshape| image:: /static/common/mActionReshape.png
    :width: 1.5em
@@ -1484,6 +1512,8 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |settings| image:: /static/common/settings.png
    :width: 1.5em
+.. |shadow| image:: /static/common/mIconShadow.png
+   :width: 1.5em
 .. |sharingExport| image:: /static/common/mActionSharingExport.png
    :width: 1.5em
 .. |sharingImport| image:: /static/common/mActionSharingImport.png
@@ -1525,7 +1555,19 @@ Icon                            Substitution                        Icon        
 .. |slider| image:: /static/common/slider.png
 .. |snapping| image:: /static/common/mIconSnapping.png
    :width: 1.5em
+.. |snappingArea| image:: /static/common/mIconSnappingArea.png
+   :width: 1.5em
+.. |snappingCentroid| image:: /static/common/mIconSnappingCentroid.png
+   :width: 1.5em
+.. |snappingEndpoint| image:: /static/common/mIconSnappingEndpoint.png
+   :width: 1.5em
+.. |snappingMiddle| image:: /static/common/mIconSnappingMiddle.png
+   :width: 1.5em
+.. |snappingSegment| image:: /static/common/mIconSnappingSegment.png
+   :width: 1.5em
 .. |snappingSelf| image:: /static/common/mIconSnappingSelf.png
+   :width: 1.5em
+.. |snappingVertex| image:: /static/common/mIconSnappingVertex.png
    :width: 1.5em
 .. |sort| image:: /static/common/sort.png
    :width: 1.5em
@@ -1583,13 +1625,19 @@ Icon                            Substitution                        Icon        
    :width: 1.5em
 .. |temporalNavigationFixedRange| image:: /static/common/mTemporalNavigationFixedRange.png
    :width: 1.5em
+.. |temporalNavigationMovie| image:: /static/common/mTemporalNavigationMovie.png
+   :width: 1.5em
 .. |temporalNavigationOff| image:: /static/common/mTemporalNavigationOff.png
    :width: 1.5em
 .. |terminal| image:: /static/common/mActionTerminal.png
    :width: 1.5em
 .. |text| image:: /static/common/text.png
    :width: 1.5em
+.. |textAlongLine| image:: /static/common/mActionTextAlongLine.png
+   :width: 1.5em
 .. |textAnnotation| image:: /static/common/mActionTextAnnotation.png
+   :width: 1.5em
+.. |tiledSceneLayer| image:: /static/common/mIconTiledSceneLayer.png
    :width: 1.5em
 .. |tiles| image:: /static/common/tiles.png
    :width: 1.5em

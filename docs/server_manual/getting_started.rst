@@ -635,7 +635,7 @@ A simple procedure is the following:
 
 #. Apache is not directly installed as a service on Windows. You need to:
 
-   #. Right-click the :file:`OSGeo4W.bat` file at the root of the :file:`C:\\OSGeo4W64\\`
+   #. Right-click the :file:`OSGeo4W.bat` file at the root of the :file:`C:\\OSGeo4W\\`
       folder (if the default installation paths have been used) and select
       :guilabel:`Run as administrator`
    #. In the console, run ``apache-install.bat``, which will output
@@ -651,7 +651,7 @@ A simple procedure is the following:
 
       The service is started as you can notice in the report.
       But the server may fail to run due to missing custom configuration.
-#. Edit the :file:`C:\\OSGeo4w64\\apps\\apache\\conf\\httpd.conf` file
+#. Edit the :file:`C:\\OSGeo4w\\apps\\apache\\conf\\httpd.conf` file
    with the following changes (various other combinations are possible):
 
 
@@ -679,7 +679,7 @@ A simple procedure is the following:
 
         - .. code-block:: apache
 
-            ScriptAlias /cgi-bin/ "C:/OSGeo4W64/apps/qgis/bin/"
+            ScriptAlias /cgi-bin/ "C:/OSGeo4W/apps/qgis/bin/"
 
       * - Provide permissions on the script folder
         - .. code-block:: apache
@@ -692,7 +692,7 @@ A simple procedure is the following:
 
         - .. code-block:: apache
 
-            <Directory "C:/OSGeo4W64/apps/qgis/bin">
+            <Directory "C:/OSGeo4W/apps/qgis/bin">
                 SetHandler cgi-script
                 AllowOverride None
                 Options ExecCGI
@@ -710,14 +710,14 @@ A simple procedure is the following:
         - .. code-block:: apache
 
             # parse OSGeo4W apache conf files
-            IncludeOptional "C:/OSGeo4W64/httpd.d/httpd_*.conf"
+            IncludeOptional "C:/OSGeo4W/httpd.d/httpd_*.conf"
 
         - .. code-block:: apache
 
             # parse OSGeo4W apache conf files
-            IncludeOptional "C:/OSGeo4W64/httpd.d/httpd_*.conf"
-            SetEnv GDAL_DATA "C:/OSGeo4W64/share/gdal"
-            SetEnv QGIS_AUTH_DB_DIR_PATH "C:/OSGeo4W64/apps/qgis/resources"
+            IncludeOptional "C:/OSGeo4W/httpd.d/httpd_*.conf"
+            SetEnv GDAL_DATA "C:/OSGeo4W/share/gdal"
+            SetEnv QGIS_AUTH_DB_DIR_PATH "C:/OSGeo4W/apps/qgis/resources"
 
 #. Restart the Apache web server
 
@@ -841,11 +841,6 @@ located in the :file:`cgi-bin` folder.
 WMS capabilities
 ----------------
 
-In the :guilabel:`WMS capabilities` tab, you can define
-the extent advertised in the WMS GetCapabilities response by entering
-the minimum and maximum X and Y values in the fields under
-:guilabel:`Advertised extent`.
-
 .. _figure_wms_definitions:
 
 .. figure:: img/ows_server_wms.png
@@ -853,8 +848,11 @@ the minimum and maximum X and Y values in the fields under
 
    Definitions in the WMS tab
 
-Clicking :guilabel:`Use Current Canvas Extent` sets these values to the
-extent currently displayed in the QGIS map canvas.
+In the :guilabel:`WMS capabilities` tab, check :guilabel:`Advertised extent`
+to define the extent advertised in the WMS GetCapabilities response.
+The :ref:`spatial extent selector <extent_selector>` widget helps you enter the extent
+as a ``xmin, xmax, ymin, ymax`` text or pick it from the map canvas, layers, bookmarks...
+
 By checking |checkbox| :guilabel:`CRS restrictions`, you can restrict
 in which coordinate reference systems (CRS) QGIS Server will offer
 to render maps. It is recommended that you restrict the offered CRS as this
@@ -901,6 +899,20 @@ to segmentize the geometry before sending it to the client in a GetFeatureInfo
 response. This allows such clients to still display a feature’s geometry
 (e.g. for highlighting the feature). You need to check the
 |checkbox| :guilabel:`Segmentize feature info geometry` to activate the option.
+
+When a layer group is passed to ``GetLegendGraphic`` request,
+all of its leaf layers are added to the legend picture (however without the groups' labels).
+Check the |checkbox| :guilabel:`Add layer groups in GetLegendGraphic` option
+if you want to also insert the layer groups (and subgroups) names
+into the layer tree, just like in QGIS Desktop legend.
+
+When QGIS project contains layer groups, they are listed in WMS capabilities document alongside with layers.
+If a group (its name as listed in capabilities) is included in WMS GetMap ``LAYERS`` parameter
+alongside with names of layers in that group, QGIS would duplicate the layers:
+once for the group and once for specific layer.
+If you check the |checkbox| :guilabel:`Skip name attribute for groups` option,
+GetCapabilities will only return title attribute for the group but not its name attribute,
+making it impossible to include groups in list of layers of GetMap request.
 
 You can also use the :guilabel:`GetFeatureInfo geometry precision` option to
 set the precision of the GetFeatureInfo geometry. This enables you to save

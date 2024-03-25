@@ -877,8 +877,8 @@ Python code
 
 Execute SQL
 -----------
-Runs a simple or complex query with ``SQL`` syntax on the source
-layer.
+Runs a simple or complex query based only on SELECT with ``SQL`` syntax 
+on the source layer.
 
 Input datasources are identified with ``input1``, ``input2``... ``inputN`` and
 a simple query will look like ``SELECT * FROM input1``.
@@ -2241,8 +2241,6 @@ Basic parameters
      - Destination coordinate reference system
    * - **Convert curved geometries to straight segments**
 
-       |332|
-
        Optional
      - ``CONVERT_CURVED_GEOMETRIES``
      - [boolean]
@@ -2382,6 +2380,18 @@ Advanced parameters
      - [string]
      - GDAL layer creation options of the output format.
        Separate individual options with semicolons.
+   * - **Action to take on pre-existing file**
+
+     - ``ACTION_ON_EXISTING_FILE``
+     - [enumeration]
+
+       Default: 0
+     - How to manage existing features. Valid methods are:
+
+       0 --- Create or overwrite file
+       1 --- Create or overwrite layer
+       2 --- Append features to existing layer, but do not create new fields
+       3 --- Append features to existing layer, and create new fields if needed  
 
 Outputs
 .......
@@ -2721,6 +2731,5 @@ Python code
    please add it also to the substitutions.txt file in the
    source folder.
 
-.. |332| replace:: ``NEW in 3.32``
 .. |checkbox| image:: /static/common/checkbox.png
    :width: 1.3em

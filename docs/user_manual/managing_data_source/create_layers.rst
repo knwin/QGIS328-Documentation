@@ -183,7 +183,7 @@ To add fields to the layer you are creating:
    as described in section :ref:`sec_edit_existing_layer`.
 
 If desired, you can select |checkbox| :guilabel:`Create an autoincrementing
-primary key` under the guilabel:`Advanced Options` section. You can also rename
+primary key` under the :guilabel:`Advanced Options` section. You can also rename
 the :guilabel:`Geometry column` (``geometry`` by default).
 
 Further management of SpatiaLite layers can be done with :ref:`DB Manager
@@ -243,7 +243,7 @@ Creating a new GPX layer
 
 To create a new GPX file:
 
-#. Select :menuselection:`Create Layer -->` |createGPX|
+#. Select :menuselection:`Create Layer -->` |newGpx|
    :menuselection:`New GPX Layer...` from the :menuselection:`Layer` menu.
 #. In the dialog, choose where to save the new file, name it and press :guilabel:`Save`.
 #. Three new layers are added to the :guilabel:`Layers Panel`:
@@ -652,7 +652,7 @@ layer out of an attribute-only layer can be done with a query similar to:
    SELECT id, MakePoint(x, y, 4326) as geometry
    FROM coordinates
 
-:ref:`Functions of QGIS expressions<functions_list>` can also be used in a
+:ref:`Functions of QGIS expressions <functions_list>` can also be used in a
 virtual layer query.
 
 To refer the geometry column of a layer, use the name ``geometry``.
@@ -760,8 +760,6 @@ when used in conjunction with this spatial index syntax.
    :width: 1.5em
 .. |checkbox| image:: /static/common/checkbox.png
    :width: 1.3em
-.. |createGPX| image:: /static/common/create_gpx.png
-   :width: 1.5em
 .. |createMemory| image:: /static/common/mActionCreateMemory.png
    :width: 1.5em
 .. |indicatorMemory| image:: /static/common/mIndicatorMemory.png
@@ -769,6 +767,8 @@ when used in conjunction with this spatial index syntax.
 .. |newAttribute| image:: /static/common/mActionNewAttribute.png
    :width: 1.5em
 .. |newGeoPackageLayer| image:: /static/common/mActionNewGeoPackageLayer.png
+   :width: 1.5em
+.. |newGpx| image:: /static/common/mActionNewGpx.png
    :width: 1.5em
 .. |newMeshLayer| image:: /static/common/mActionNewMeshLayer.png
    :width: 1.5em

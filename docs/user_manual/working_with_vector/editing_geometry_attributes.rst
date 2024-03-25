@@ -115,8 +115,18 @@ There are three options to select the layer(s) to snap to:
   Snapping will not occur to a layer that is not checked in the
   snapping options dialog.
 
-As for snapping mode, you can choose between ``Vertex``, ``Segment``,
-``Area``, ``Centroid``, ``Middle of Segments`` and ``Line Endpoints``.
+When moving or creating vertex, you can opt for the following snapping modes:
+
+* |snappingVertex| :guilabel:`Vertex`
+* |snappingSegment| :guilabel:`Segment`: snaps along a line or a polygon perimeter.
+  If topological editing is enabled, then a new vertex is added at the snapping location.
+* |snappingArea| :guilabel:`Area`: guarantees that the snap point lies anywhere on a polygon's area,
+  not necessarily on its boundary
+* |snappingCentroid| :guilabel:`Centroid`: snaps to the centroid of the geometry of a feature.
+  In case of a multipart geometry, the target point may be distinct from the existing parts.
+* |snappingMiddle| :guilabel:`Middle of Segments` on line or polygon feature
+* |snappingEndpoint| :guilabel:`Line Endpoints`: snaps to the first or last vertex of every part
+  of a line or polygon feature.
 
 .. index:: Snapping icons
 
@@ -1349,17 +1359,14 @@ To split line or polygon features:
 
 #. Select the |splitFeatures| :sup:`Split Features` tool.
 #. Draw a line across the feature(s) you want to split.
-   If a selection is active, only selected features are split. When set,
-   :ref:`default values or clauses <configure_field>` are applied to corresponding
-   fields and other attributes of the parent feature are by default copied to the
-   new features.
-#. You can then as usually modify any of the attributes of any resulting feature.
+   If a selection is active, only selected features are split.
+   Fields of resulting features are filled according to their :ref:`splitting policy <policies>`.
+#. You can then as usual modify any of the attributes of any resulting feature.
 
 .. tip:: **Split a polyline into new features in one-click**
 
    Using the |splitFeatures| :sup:`Split Features` tool, snap and click on an
-   existing vertex of a polyline feature to split that feature into two new
-   features.
+   existing vertex of a polyline feature to split that feature into two new features.
 
 
 .. index::
@@ -1558,10 +1565,21 @@ In order to trim or extend existing geometries:
 Shape digitizing
 ================
 
-The :guilabel:`Shape Digitizing` toolbar is synchronized with the
-|digitizeShape| :sup:`Digitize Shape` :ref:`geometry drawing method
-<drawing_methods>` you can select on the :guilabel:`Advanced Digitizing Toolbar`.
-It offers a set of tools to draw lines or polygons features of regular shape.
+The :guilabel:`Shape Digitizing` toolbar offers a set of tools to draw lines
+or polygons features of regular shape.
+It is synchronized with the |digitizeShape| :sup:`Digitize Shape`
+:ref:`geometry drawing method <drawing_methods>` you can select on the :guilabel:`Digitizing Toolbar`.
+To use it:
+
+#. Display the toolbar: :menuselection:`View --> Toolbars --> Shape Digitizing`
+#. Select a tool that creates or modifies the shape of a geometry,
+   e.g. |captureLine| :sup:`Add line feature`, |capturePolygon| :sup:`Add polygon feature`,
+   |addPart| :sup:`Add part`, |addRing| :sup:`Add ring`, |reshape| :sup:`Reshape Features`, ...
+#. The |digitizeWithSegment| :sup:`Digitize with segment` button
+   on the :guilabel:`Digitizing Toolbar` is enabled.
+   The first time, you may need to switch it to the |digitizeShape| :sup:`Digitize Shape`
+   in order to enable tools on the :guilabel:`Shape Digitizing` toolbar.
+#. Pick a shape digitizing tool and draw.
 
 .. index:: Circular string
 .. _add_circular_string:
@@ -1606,7 +1624,7 @@ curved geometry, if not, QGIS will segmentize the circular arcs.
   and the orientation of  the circle. (Left-click, right-click)
 - |circle3Points| :sup:`Circle from 3 points`: Draws a circle from three
   known points on the circle. (Left-click, left-click, right-click)
-- |circleCenterPoint| :sup:`Circle from center and a point`: Draws a circle
+- |circleCenterPoint| :sup:`Circle by a center point and another point`: Draws a circle
   with a given center and a point on the circle (Left-click, right-click).
   When used with the :ref:`advanced_digitizing_panel` this tool can become a
   "Add circle from center and radius" tool by setting and locking the distance
@@ -2249,9 +2267,21 @@ To edit features in-place:
    :width: 1.5em
 .. |snapping| image:: /static/common/mIconSnapping.png
    :width: 1.5em
+.. |snappingArea| image:: /static/common/mIconSnappingArea.png
+   :width: 1.5em
+.. |snappingCentroid| image:: /static/common/mIconSnappingCentroid.png
+   :width: 1.5em
+.. |snappingEndpoint| image:: /static/common/mIconSnappingEndpoint.png
+   :width: 1.5em
 .. |snappingIntersection| image:: /static/common/mIconSnappingIntersection.png
    :width: 1.5em
+.. |snappingMiddle| image:: /static/common/mIconSnappingMiddle.png
+   :width: 1.5em
+.. |snappingSegment| image:: /static/common/mIconSnappingSegment.png
+   :width: 1.5em
 .. |snappingSelf| image:: /static/common/mIconSnappingSelf.png
+   :width: 1.5em
+.. |snappingVertex| image:: /static/common/mIconSnappingVertex.png
    :width: 1.5em
 .. |splitFeatures| image:: /static/common/mActionSplitFeatures.png
    :width: 1.5em

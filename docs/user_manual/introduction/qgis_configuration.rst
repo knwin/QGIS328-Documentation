@@ -244,6 +244,8 @@ CRS and Transforms Settings
 .. note:: For more information on how QGIS handles layer projection, please
   read the dedicated section at :ref:`label_projections`.
 
+.. _crs_handling_options:
+
 CRS Handling
 ............
 
@@ -346,6 +348,7 @@ You can |symbologyAdd| :sup:`Add`, |symbologyRemove| :sup:`Remove`
 or |toggleEditing| :sup:`Edit` transformations,
 which will be used in any newly created project.
 
+.. _user_defined_crs:
 
 User Defined CRS
 ................
@@ -577,6 +580,8 @@ layers rendering in the map canvas.
 * |checkbox| :guilabel:`Make lines appear less jagged at the expense of some
   drawing performance`
 
+.. _vector_rendering_options:
+
 Vector rendering settings
 .........................
 
@@ -624,6 +629,8 @@ for rendering vector layers.
   * :guilabel:`Tolerance type`: it can be *Maximum angle* or *Maximum difference*
     between approximation and curve.
 
+.. _raster_rendering_options:
+
 Raster rendering settings
 .........................
 
@@ -645,7 +652,7 @@ Under :guilabel:`Bands and Resampling`:
 * The :guilabel:`Zoomed in resampling`
   and the :guilabel:`Zoomed out resampling` methods can be defined.
   For :guilabel:`Zoomed in resampling` you can choose between three
-  resampling methods: 'Nearest Neighbour', 'Bilinear' and 'Cubic'.
+  resampling methods: 'Nearest neighbour', 'Bilinear (2x2 kernel)' and 'Cubic (4x4 kernel)'.
   For :guilabel:`Zoomed out resampling` you can choose between 'Nearest Neighbour'
   and 'Average'.
   You can also set the :guilabel:`Oversampling` value (between 0.0 and 99.99 - a large
@@ -692,11 +699,27 @@ These properties let you set:
 
 * **Layer legend** interaction:
 
-  * :guilabel:`Double click action in legend` |selectString|. You can either
-    'Open layer properties', 'Open attribute table' or 'Open layer styling dock'
-    with the double click.
-  * |unchecked| :guilabel:`Show feature count for newly added layers`: displays
-    in the :guilabel:`Layers` panel the number of features next to the layer name.
+  * :guilabel:`Double click action in legend`: whether a double-click on a layer should either
+    :guilabel:`Open layer properties` (default), :guilabel:`Open attribute table`
+    or :guilabel:`Open layer styling dock`.
+
+  .. _layer_tree_insertion_methods:
+
+  * :guilabel:`Behavior used when adding new layers`: determines where layers are placed
+    in the :guilabel:`Layers` panel when loaded into QGIS. It can be:
+
+    * :guilabel:`Above currently selected layer`
+    * :guilabel:`Always on top of the layer tree`
+    * :guilabel:`Optimal index within current layer tree group`:
+      Unlike the other options that sort the new layers among them
+      and place them as a stack at the desired location,
+      this option extents the sorting logic to the whole layer tree (or the active group)
+      and inserts new layers in an "optimal" fashion
+      by insuring that point layers sit on top of point layers,
+      followed by line layers on top of lines, followed by polygon layers, etc.
+
+  * |unchecked| :guilabel:`Show feature count for newly added layers`:
+    displays in the :guilabel:`Layers` panel the number of features next to the layer name.
     Feature count of classes, if any, is as well displayed.
     You can right-click on a layer to turn on/off its feature count.
   * |unchecked| :guilabel:`Display classification attribute names` in the Layers
@@ -752,6 +775,8 @@ This tab offers some options regarding the behavior of the :ref:`Identify tool <
 * :guilabel:`Minimum width` determines how thick should
   the outline of a highlighted object be.
 
+.. _global_measure_tool:
+
 **Measure tool**
 
 * Define :guilabel:`Rubberband color` for measure tools
@@ -760,31 +785,48 @@ This tab offers some options regarding the behavior of the :ref:`Identify tool <
   numbers (e.g., meters to kilometers)
 * :guilabel:`Preferred distance units`: options are 'Meters', 'Kilometers',
   'Feet', 'Yards', 'Miles', 'Nautical Miles', 'Centimeters', 'Millimeters',
-  'Degrees' or 'Map Units'
+  'Inches', 'Degrees' or 'Map Units'
 * :guilabel:`Preferred area units`: options are 'Square meters', 'Square
   kilometers', 'Square feet', 'Square yards', 'Square miles', 'Hectares',
   'Acres', 'Square nautical miles', 'Square centimeters', 'Square millimeters',
-  'Square degrees' or 'Map Units'
+  'Square inches', 'Square degrees' or 'Map Units'
 * :guilabel:`Preferred angle units`: options are 'Degrees', 'Radians',
   'Gon/gradians', 'Minutes of arc', 'Seconds of arc', 'Turns/revolutions',
   milliradians (SI definition) or mil (NATO/military definition)
+
+Some of these options can be overridden at the :ref:`project level <measurements_ellipsoid>`.
+
+.. _measure_copy_settings:
+
+**Measure Tool Copy Settings**
+
+These settings allow you to control the behavior of the :guilabel:`Copy` button
+in the |measure| :sup:`Measure Line` window. You can choose to
+|checkbox| :guilabel:`Include header` to keep columns names, and you can also
+select :guilabel:`Separator` of your choice. You can also choose
+|checkbox| :guilabel:`Always use decimal point` to keep your coordinates copied
+to the clipboard with a dot as a decimal separator, even if your language settings
+in QGIS options are set up to use a comma. In this case, if you don't have the 
+:guilabel:`Always use decimal point` 
+option checked, you will be unable to select comma as a field separator.
 
 **Coordinate and Bearing Display**
 
 This section provides ways to :guilabel:`Configure`:
 
-* :guilabel:`Default coordinate format for new projects`, as displayed in
-  the :guilabel:`Coordinates` box on QGIS status bar and in the :guilabel:`Derived`
-  section of the |identify| :sup:`Identify features` tool's results
-* :guilabel:`Default bearing format for new projects`, as displayed in
-  the status bar for the map canvas panning direction and by the |measureBearing|
-  :sup:`Measure bearing` tool.
+* :guilabel:`Default coordinate format for new projects`,
+  as displayed in the :guilabel:`Coordinates` box on QGIS status bar
+  and in the :guilabel:`Derived` section of the |identify| :sup:`Identify features` tool's results
+* :guilabel:`Default bearing format for new projects`, as displayed in the status bar
+  for the map canvas panning direction and by the |measureBearing| :sup:`Measure bearing` tool.
 
 These options can be overridden at the :ref:`project level <coordinate_and_bearing>`.
 
 **Panning and zooming**
 
 * Define a :guilabel:`Zoom factor` for zoom tools or wheel mouse
+* |checkbox| :guilabel:`Reverse wheel zoom` allows you to adjust
+  mouse wheel scrolling direction.
 
 .. _predefinedscales:
 
@@ -845,7 +887,7 @@ This tab helps you configure general settings when :ref:`editing vector layer
 * |checkbox| :guilabel:`Enable snapping by default` activates snapping when
   a project is opened
 * Define :guilabel:`Default snap mode` |selectString| ('Vertex', 'Segment', 'Centroid',
-  'Middle of segments', Line endpoints', 'Area')
+  'Middle of segments', 'Line endpoints', 'Area')
 * Define :guilabel:`Default snapping tolerance` in map units or pixels
 * Define the :guilabel:`Search radius for vertex edits` in map units or pixels
 * :guilabel:`Display main dialog as (restart required)`: set whether the
@@ -882,6 +924,26 @@ create curve segments while digitizing. Keep in mind that your data provider
 must support this feature.
 
 
+.. index:: Elevation
+.. _elevation_options:
+
+Elevation settings
+------------------
+
+.. _figure_elevation_options:
+
+.. figure:: img/options_elevation.png
+   :align: center
+
+   Elevation settings
+
+In |elevationProfile| :guilabel:`Elevation` menu, you can set a specific color
+to use as the :guilabel:`Background color` for :ref:`elevation profiles <label_elevation_profile_view>`.
+This can make the chart more readable for certain datasets, e.g. point clouds with RGB coloring,
+where the default background color is too similar to point colors to be easily discernable.
+If unchanged, the elevation profiles will continue to display using the standard system background color.
+
+
 .. index:: 3D
 .. _3d_options:
 
@@ -896,36 +958,44 @@ must support this feature.
    3D settings
 
 The |3d| :guilabel:`3D` menu helps you configure some default settings to use
-for any :guilabel:`3D Map view`. These can refer to :guilabel:`Default Camera Settings`:
+for any :guilabel:`3D Map view`. These can refer to:
 
-* :guilabel:`Projection type`: allowing to view the 3D scene in a:
+* :guilabel:`Default Camera Settings`:
 
-  * :guilabel:`Perspective projection` (default): Parallel lines appear to meet
-    in the distance. Objects appear to shrink the farther they are from the camera.
-  * or an :guilabel:`Orthogonal projection`: Parallel lines appear parallel.
-    Objects appear the same size regardless of distance.
-* Camera's :guilabel:`Field of view`: only relevant in perspective projection,
-  specifies the current vertical field of view in degrees and determines how much
-  of the scene is visible to the camera. Default value is 45\°.
-* :guilabel:`Navigation mode`: provides different means to interact with the 3D scene.
-  Available modes are:
+  * :guilabel:`Projection type`: allowing to view the 3D scene in a:
 
-  * :guilabel:`Terrain based`: the camera follows around a fixed position on
-    the surface of the terrain as the scene is navigated.
-  * :guilabel:`Walk mode (first person)`
+    * :guilabel:`Perspective projection` (default): Parallel lines appear to meet
+      in the distance. Objects appear to shrink the farther they are from the camera.
+    * or an :guilabel:`Orthogonal projection`: Parallel lines appear parallel.
+      Objects appear the same size regardless of distance.
+  * Camera's :guilabel:`Field of view`: only relevant in perspective projection,
+    specifies the current vertical field of view in degrees and determines how much
+    of the scene is visible to the camera. Default value is 45\°.
+  * :guilabel:`Navigation mode`: provides different means to interact with the 3D scene.
+    Available modes are:
 
-  Depending on the selected mode, :ref:`navigation commands <3d_navigation>` differ.
-* :guilabel:`Movement speed`
-* :guilabel:`Invert vertical axis`: Controls whether vertical axis movements
-  should be inverted from their normal behaviour. Only affects movement in the
-  :guilabel:`Walk mode`. It can be set to:
+    * :guilabel:`Terrain based`: the camera follows around a fixed position on
+      the surface of the terrain as the scene is navigated.
+    * :guilabel:`Walk mode (first person)`
 
-  * :guilabel:`Never`
-  * :guilabel:`Only when dragging`: causes the vertical motion to inverted only
-    when performing a click-and-drag camera rotation
-  * and :guilabel:`Always`: causes the motions to be inverted when both
-    click-and-dragging and when the camera movement is locked to the cursor
-    (via a :kbd:`~` key press)
+    Depending on the selected mode, :ref:`navigation commands <3d_navigation>` differ.
+  * :guilabel:`Movement speed`
+  * :guilabel:`Invert vertical axis`: Controls whether vertical axis movements
+    should be inverted from their normal behaviour. Only affects movement in the
+    :guilabel:`Walk mode`. It can be set to:
+
+    * :guilabel:`Never`
+    * :guilabel:`Only when dragging`: causes the vertical motion to inverted only
+      when performing a click-and-drag camera rotation
+    * and :guilabel:`Always`: causes the motions to be inverted when both
+      click-and-dragging and when the camera movement is locked to the cursor
+      (via a :kbd:`~` key press)
+
+* Under :guilabel:`Graphics memory`, the  :guilabel:`Allowed memory per layer` option
+  lets you set the GPU memory limit configuration on each layer.
+  This is useful for users utilizing large 3D scenes which exhaust the available GPU memory resources.
+  When a limit is hit, a warning is also displayed, which should assist in troubleshooting large scenes.
+
 
 .. index:: Colors
 .. _colors_options:
@@ -1152,18 +1222,71 @@ https://doc.qt.io/archives/qt-5.9/qnetworkproxy.html#ProxyType-enum
 GPS settings
 ------------
 
-GPS Visualisation Options
-.........................
+The |gps| :guilabel:`GPS` dialog helps you configure GPS devices connections and properties in QGIS.
+It also provides settings for GPS tracking and data digitizing.
 
 .. figure:: img/options_gps.png
    :align: center
 
    GPS settings
 
-This dialog helps you configure GPS devices display when :ref:`connected to QGIS <sec_gpstracking>`:
+You can specify:
 
-* :guilabel:`GPS location marker` for controlling the marker symbol used for the current GPS location
-* :guilabel:`Rotate to match GPS bearing`: whether the marker symbol should be rotated to match the GPS direction
+* :guilabel:`GPS Connection`: provides different means to connect the device to QGIS
+
+  * |radioButtonOn| :guilabel:`Autodetect`
+  * |radioButtonOff| :guilabel:`Serial device` (reload required if a new GPS Device is connected)
+  * |radioButtonOff| :guilabel:`gpsd` (selecting the :guilabel:`Host` and :guilabel:`Port`
+    your GPS is connected to, and providing a :guilabel:`Device` name)
+
+  In case of connection problems, you can try to switch from one to another.
+
+* :guilabel:`Filtering`: You can set an :guilabel:`Acquisition interval (seconds)`
+  and/or a :guilabel:`Distance threshold (meters)` parameters to keep the cursor still active
+  when the receiver is in static conditions.
+
+* Under :guilabel:`Geometry Options`, the :guilabel:`Store in M values` option
+  allows to create geometries with M values from the inbuilt GPS logging tools.
+  This applies to both features digitized from GPS logs
+  and from the :ref:`Log to Geopackage/SpatiaLite <gps_logging>` functionality...
+  Options include storing timestamps (as ms since epoch), ground speed, altitudes,
+  bearings, and accuracy components as m values.
+
+* :guilabel:`GPS Location Marker`
+
+  * Configure a symbol for the :guilabel:`GPS location marker`, indicating the current GPS position
+  * |checkbox| :guilabel:`Rotate location marker to match GPS bearing`:
+    whether the marker symbol should be rotated to match the GPS direction
+
+* :guilabel:`GPS Bearing`:
+
+  * configure a :guilabel:`Bearing line style` using QGIS line symbol properties
+  * set whether to |unchecked| :guilabel:`Calculate Bearings from travel direction`:
+    If checked, the bearing reported by the GPS device will be ignored
+    and the bearing will instead be calculated by the angle between the previous two GPS locations.
+
+* :guilabel:`GPS Track`: set symbol to use for the :guilabel:`Track line style`
+* :guilabel:`Map Centering and Rotation`: defines when the map canvas is updated
+  according to the user displacement on the field:
+
+  * :guilabel:`Threshold for automatic map centering`: defines the minimal offset
+    of the GPS position from the map canvas center to trigger an automatic
+    :ref:`map recentering <gps_recenter>` if enabled.
+  * :guilabel:`Automatic map rotation frequency`: defines how often the map rotation
+    to match the GPS bearing could happen;
+    it can be on a custom duration or :guilabel:`On GPS signal`.
+
+* :guilabel:`Timestamp Properties` to configure how time values are displayed
+  and stored in the data.
+  Parameters include the :guilabel:`Format` which can be:
+
+  * :guilabel:`Local time`
+  * :guilabel:`UTC`
+  * :guilabel:`UTC with offset`, to account for daylight savings offsets
+    or other complex time zone issues
+  * a specific :guilabel:`Time zone`
+
+  Moreover, :guilabel:`Leap seconds` correction can be applied, by adding the seconds to GPS timestamp.
 
 .. _defining_new_device:
 
@@ -1176,41 +1299,7 @@ Literally hundreds of GPS receivers and programs are supported.
 QGIS relies on GPSBabel to interact with these devices
 and :ref:`manipulate their data <gps_algorithms>`.
 
-#. First you have to define the :guilabel:`Path to GPSBabel` binaries.
-#. Then you may want to add your device.
-   You can update devices list using |symbologyAdd| :sup:`Add new device`
-   or |symbologyRemove| :sup:`Remove device` button.
-#. For each device:
-
-   * you provide a :guilabel:`Device name`
-   * you configure different :guilabel:`Commands` QGIS will use while interacting with it,
-     such as:
-
-     * :guilabel:`Waypoint download` from the device
-     * :guilabel:`Waypoint upload` to the device
-     * :guilabel:`Route download` from the device
-     * :guilabel:`Route upload` to the device
-     * :guilabel:`Track download` from the device
-     * :guilabel:`Track upload` to the device
-
-     While the commands are usually GPSBabel commands, you can also use any other command line program that can create a GPX file.
-     QGIS will replace the keywords ``%type``, ``%in``, and ``%out`` when it runs the command.
-
-     As an example, if you create a device type with the download command
-     ``gpsbabel %type -i garmin -o gpx %in %out``
-     and then use it to download waypoints from port ``/dev/ttyS0`` to the file ``output.gpx``,
-     QGIS will replace the keywords and run the command
-     ``gpsbabel -w -i garmin -o gpx /dev/ttyS0 output.gpx``.
-
-     Read the GPSBabel manual for the command line options that may be specific to your use case.
-
-Once you have created a new device type, it will appear in the device lists for
-the GPS download and upload algorithms.
-
-.. figure:: img/options_gpsbabel.png
-   :align: center
-
-   GPS Babel settings
+For details on how-to, please refer to :ref:`load_from_device`.
 
 
 .. index:: Search widget, Locator
@@ -1274,6 +1363,7 @@ In the dialog, you can:
 The set of default locator filters can be extended by plugins, eg for OSM
 nominatim searches, direct database searching, layer catalog searches, ...
 
+.. _acceleration_options:
 
 Acceleration settings
 ---------------------
@@ -1359,10 +1449,31 @@ You can specify:
 
 * under :guilabel:`Typing`
 
-  * |unchecked| :guilabel:`Automatic parentheses insertion`: Enables autoclosing
-    for parentheses
-  * |checkbox| :guilabel:`Automatic insertion of the 'import' string on 'from xxx'`:
+  * |checkbox| :guilabel:`Automatic parentheses insertion`:
+    When no text is selected, if an opening character (parentheses, quotes, brackets, ...) is entered,
+    inserts the matching closing character just after the cursor.
+    Note that this behavior is disabled if the current cursor is inside a string or comment.
+  * |checkbox| :guilabel:`Automatically surround selection when typing quotes or brackets`:
+    When an opening character is entered, the selected text is enclosed in the opening/closing pair.
+    Selection remains the same, so it is possible to quote a selected word
+    and enclose it in parentheses just by typing ``"`` then ``(``.
+
+    Special case for multiline selection with quotes and double quotes:
+    selection is enclosed in triple single/double quotes.
+  * |unchecked| :guilabel:`Automatic insertion of the 'import' string on 'from xxx'`:
     Enables insertion of 'import' when specifying imports
+
+* under :guilabel:`Formatting`, you can add automated tools to reformat the code you are writing:
+
+  * |unchecked| :guilabel:`Reformat on save`: formatting is applied just before saving the script
+  * |checkbox| :guilabel:`Sort imports`: sorts 'import' statements using the `isort library
+    <https://pycqa.github.io/isort/>`_
+  * :guilabel:`Maximum line length`: controls how the formatter will wrap the lines, and controls the editor ruler
+  * :guilabel:`Formatter` - supported tools are :guilabel:`autopep8` and :guilabel:`black`, with dedicated option:
+
+    * :guilabel:`Autopep8 level` - more details at `autopep8 advanced usage
+      <https://pypi.org/project/autopep8/#more-advanced-usage>`_
+    * |unchecked| :guilabel:`Normalize quotes`: replaces all single quotes with double quotes if possible
 
 * under :guilabel:`Run and Debug`
 
@@ -1580,9 +1691,10 @@ In the |general| :guilabel:`General` tab, the :guilabel:`General settings` let y
 
 .. _measurements_ellipsoid:
 
-Calculating areas and distances is a common need in GIS. However, these values
-are really tied to the underlying projection settings. The :guilabel:`Measurements`
-frame lets you control these parameters. You can indeed choose:
+Calculating areas and distances is a common need in GIS.
+However, these values are really tied to the underlying projection settings.
+The :guilabel:`Measurements` frame lets you control these parameters.
+You can indeed choose:
 
 * the :guilabel:`Ellipsoid`, on which distance and area calculations are entirely based;
   it can be:
@@ -1593,15 +1705,17 @@ frame lets you control these parameters. You can indeed choose:
   * a **Custom** one: you'll need to set values of the semi-major and semi-minor axes.
   * or an existing one from a predefined list (Clarke 1866, Clarke 1880 IGN,
     New International 1967, WGS 84...).
-* the :guilabel:`units for distance measurements` for length and perimeter and
-  the :guilabel:`units for area measurements`. These settings, which default
-  to the units set in QGIS options but then overrides it for the current project,
-  are used in:
+* the :guilabel:`Units for distance measurements` for length and perimeter,
+  and the :guilabel:`Units for area measurements`.
+  These settings which default to their corresponding :ref:`global options <global_measure_tool>`
+  override them in the current project.
+  They are used in:
 
   * Attribute table field update bar
   * Field calculator calculations
-  * Identify tool derived length, perimeter and area values
-  * Default unit shown in measure dialog
+  * :ref:`Identify tool <identify>` derived length, perimeter and area values
+  * :ref:`measure dialog <sec_measure>`
+  * :ref:`scale bar decoration <scalebar_decoration>`
 
 .. _coordinate_and_bearing:
 
@@ -1721,6 +1835,9 @@ Under |symbology| :guilabel:`Styles` tab, you can configure symbols and colors
 inherent to the project, allowing to safely share the project among different
 machines.
 
+Default symbols
+...............
+
 The :guilabel:`Default Symbols` group lets you control how new layers will
 be drawn in the project when they do not have an existing :file:`.qml` style
 defined. You can set :guilabel:`Marker`, :guilabel:`Line`, :guilabel:`Fill` to
@@ -1728,6 +1845,9 @@ apply depending on the layer geometry type as well as default :guilabel:`Color
 Ramp` and :guilabel:`Text Format` (e.g. when enabling labeling).
 Any of these items can be reset using the :guilabel:`Clear` entry from
 the corresponding drop-down widget.
+
+Options
+.......
 
 In the :guilabel:`Options` group, you can:
 
@@ -1743,6 +1863,9 @@ In the :guilabel:`Options` group, you can:
    Styles tab
 
 .. _project_colors:
+
+Project Colors
+..............
 
 There is also an additional section where you can define specific colors for the
 running project. Like the :ref:`global colors <colors_options>`, you can:
@@ -1776,6 +1899,33 @@ These colors are identified as :guilabel:`Project colors` and listed as part of
   #. Update the project color once and the change is reflected EVERYWHERE
      it's in use.
 
+.. _style_database: 
+
+Style Database
+..............
+
+A style database in QGIS is a structured repository designed to store symbols,
+text formats, and other styling elements. It serves as a centralized location 
+where you can organize and manage your symbology resources efficiently.
+You can create a dedicated style database for a specific client, housing 
+symbols tailored to that client's need. This ensures a clean and organized 
+approach, without cluttering the default style database.
+In multi-user environments, it's possible to store project-specific styles 
+in a shared location. By linking a project to these styles, all users within
+the project gain access to common symbology, eliminating the need for 
+manual import or updates to individual local style database.
+Storing symbols in a project file offers a practical solution, preventing users
+from overcrowding their global style database with project-specific symbology. 
+This approach guarantees that other users working on the same project immediately
+have access to all the necessary symbology upon loading the project.
+
+In the :guilabel:`Style Database` section you can choose to 
+|symbologyAdd| :guilabel:`Add` or |symbologyRemove| :guilabel:`Remove` 
+style database or you can |newPage| :guilabel:`Create new style database`.
+When you add or remove a style database in this section, the changes will
+be automatically reflected in the |symbology| :guilabel:`Symbology Properties`.
+
+
 .. _project_data_source_properties:
 
 Data Sources Properties
@@ -1783,7 +1933,7 @@ Data Sources Properties
 
 In the |openTable| :guilabel:`Data Sources` tab, you can:
 
-* :guilabel:`Transaction mode`: define how edits are sent to the data provider```
+* :guilabel:`Transaction mode`, defines how edits are sent to the data provider:
 
   * :guilabel:`Local Edit Buffer`: edits are buffered locally and sent to the provider 
     when toggling layer editing mode or clicking :guilabel:`Save edits`.
@@ -1864,13 +2014,13 @@ In the |openTable| :guilabel:`Data Sources` tab, you can:
 Relations Properties
 --------------------
 
-The |relations| :guilabel:`Relations` tab is used to define 1:n relations and
-polymorphic relations. The relations
-are defined in the project properties dialog. Once relations exist for a layer,
-a new user interface element in the form view (e.g. when identifying a feature
-and opening its form) will list the related entities. This provides a powerful
-way to express e.g. the inspection history on a length of pipeline or road segment.
-You can find out more about 1:n relations support in Section :ref:`vector_relations`.
+The |relations| :guilabel:`Relations` tab is used to define relations between layers.
+The relations can be of one to one, many to many or polymorphic type.
+They are defined in the project properties dialog.
+Once relations exist for a layer, a new user interface element in the form view
+(e.g. when identifying a feature and opening its form) will list the related entities.
+This provides a powerful way to express e.g. the inspection history on a length of pipeline or road segment.
+You can find out more about relations support in section :ref:`vector_relations`.
 
 .. _figure_relations_tab:
 
@@ -1950,12 +2100,12 @@ Terrain Properties
 ------------------
 
 The |layoutItem3DMap| :guilabel:`Terrain` tab helps you configure default settings
-for the terrain and elevation. When any new :ref:`3d map <label_3dmapview>`
-is created in the project, the map will default to using the same terrain
-settings as are defined for the project.
-The project elevation settings will also be respected by the Profile tool.
+for the terrain and elevation.
+When any new :ref:`3d map <label_3dmapview>` is created in the project,
+the map will default to using the same terrain settings as are defined for the project.
+The project elevation settings will also be respected
+by the :ref:`elevation profile <label_elevation_profile_view>` tool.
 
-.. todo: Add link to the profile tool when available
 
 .. _figure_terrain_tab:
 
@@ -1964,18 +2114,51 @@ The project elevation settings will also be respected by the Profile tool.
 
    Project Terrain tab
 
-Terrain and elevation options are available for:
+* :guilabel:`Terrain` and elevation options are available for:
 
-* :guilabel:`Flat terrain` with :guilabel:`Terrain height` setting
-* :guilabel:`DEM (Raster Layer)`: with setting for defining the :guilabel:`Raster layer`,
-  a :guilabel:`Vertical scale` factor to apply to band values and
-  a vertical :guilabel:`Offset`
-* :guilabel:`Mesh`: with setting for defining the :guilabel:`Mesh layer`,
-  a :guilabel:`Vertical scale` factor to apply to vertices Z value and
-  a vertical :guilabel:`Offset`
+  * :guilabel:`Flat terrain` with :guilabel:`Terrain height` setting
+  * :guilabel:`DEM (Raster Layer)`: with setting for defining the :guilabel:`Raster layer`,
+    a :guilabel:`Vertical scale` factor to apply to band values and
+    a vertical :guilabel:`Offset`
+  * :guilabel:`Mesh`: with setting for defining the :guilabel:`Mesh layer`,
+    a :guilabel:`Vertical scale` factor to apply to vertices Z value and
+    a vertical :guilabel:`Offset`
 
-These settings can be overwritten from the 3D map :ref:`configuration
-dialog <scene_configuration>`.
+  These settings can be overwritten from the 3D map :ref:`configuration dialog <scene_configuration>`.
+
+.. _global_map_shading:
+
+* With |unchecked| :guilabel:`Global map shading` settings, you apply a global shading effect to the map,
+  based on the elevation of all the active layers that have elevation properties enabled, including:
+
+  * :ref:`raster layers <raster_elevation>`
+  * :ref:`mesh layers <meshelevation>`
+  * :ref:`point cloud layers <point_clouds_elevation>`
+
+  :guilabel:`Method to combine`: the elevation value at any particular position for all the relevant layers are combined,
+  and the considered elevation is chosen depending on one of these methods:
+
+  * :guilabel:`Highest elevation` value
+  * :guilabel:`Based on layer's order`: the elevation on the topmost layer in the layer tree is considered.
+
+  Supported shading options are:
+
+  * |checkbox| :guilabel:`Eye-dome lighting`: applies shading effects to the map canvas for a better depth rendering.
+    Following parameters can be controlled:
+
+    * :guilabel:`Strength`: increases the contrast, allowing for better depth perception
+    * :guilabel:`Distance`: represents the distance of the used pixels off the center pixel
+      and has the effect of making edges thicker.
+
+  * |unchecked| :guilabel:`Hillshading`, shaping some reliefs on the map using shading (levels of gray):
+
+    * :guilabel:`Z Factor`: Scaling factor for the elevation value
+    * |unchecked| :guilabel:`Multidirectional`: Specify if multidirectional hillshading is to be used
+    * :guilabel:`Azimuth`: The azimuth of the light source
+    * :guilabel:`Altitude`: The elevation angle of the light source
+
+  .. note:: A shortcut to :guilabel:`Global map shading` properties is available
+    through the :guilabel:`Layer Styling` panel.
 
 
 .. index:: Sensors; Readings
@@ -2002,7 +2185,9 @@ will open and allow you to configure:
 * the :guilabel:`Sensor name`: used to retrieve sensor values in expressions and
   python scripts;
 * the :guilabel:`Sensor type`: TCP, UDP, serial port, etc.; and
-* additional type-specific details (e.g. host name and port)
+* additional type-specific details (e.g. host name and port).
+  For serial port sensors, comboboxes with the system's available serial ports
+  and connection baud rate are available for their selection.
 
 .. _figure_sensors_configuration:
 
@@ -2351,10 +2536,10 @@ This option will restore the panels and toolbars visibility, position, and size.
 Unless it's changed again, the default UI settings will be used in the following
 sessions.
 
-Notice that this option doesn't have any effect on :ref:`GUI
-customization<sec_customization>`. Items hidden by GUI customization (e.g. the
-status bar) will remain hidden even using the ``--defaultui`` option. See also
-the ``--nocustomization`` option.
+Notice that this option doesn't have any effect on :ref:`GUI customization <sec_customization>`.
+Items hidden by GUI customization (e.g. the status bar) will remain hidden
+even using the ``--defaultui`` option.
+See also the ``--nocustomization`` option.
 
 ``--hide-browser``
 ..................
@@ -2439,8 +2624,7 @@ We recommend that you keep these defaults values and add your own sections at th
 of the file. If a section is duplicated in the file, QGIS will take the last
 one from top to bottom.
 
-You can change ``allowVersionCheck=false`` to disable
-the QGIS version check.
+You can change ``allowVersionCheck=false`` to disable the QGIS version check.
 
 If you do not want to display the migration window after a fresh install, you need
 the following section:
@@ -2458,10 +2642,23 @@ If you want to add a custom variable in the global scope:
    [variables]
    organisation="Your organization"
 
-To discover the possibilities of the settings ``INI`` file, we suggest that you set
-the config you would like in QGIS Desktop and then search for it in your ``INI``
-file located in your profile using a text editor. A lot of settings can be set
-using the ``INI`` file such as WMS/WMTS, PostGIS connections, proxy settings, maptips…
+A lot of settings can be set using the :file:`.INI` file such as WMS/WMTS, PostGIS connections,
+proxy settings, maptips, default values for algorithms parameters…
+For example, if you want to configure organization wide default values for some algorithms
+it would be handy if you could configure it in the prepared ini-file for all users.
+If the users then open the toolbox to execute an algorithm, the default values will be there.
+To set the default value e.g. for ``GRID_SIZE`` parameter for the ``native:intersection`` algorithm,
+you could write the following into the :file:`.INI` file:
+
+.. code-block:: ini
+
+   [Processing]
+   DefaultGuiParam\native%3Aintersection\GRID_SIZE=0.01
+
+Not all settings can be prepared from QGIS GUI,
+but to discover the possibilities of the settings :file:`.INI` file,
+we suggest that you set the config you would like in QGIS Desktop
+and then search for it in your :file:`.INI` file located in your profile using a text editor.
 
 Finally, you need to set the environment variable ``QGIS_GLOBAL_SETTINGS_FILE``
 to the path of your customized file.
@@ -2498,6 +2695,8 @@ in the QGIS user profile.
    :width: 1.2em
 .. |editPaste| image:: /static/common/mActionEditPaste.png
    :width: 1.5em
+.. |elevationProfile| image:: /static/common/mActionElevationProfile.png
+   :width: 1.5em
 .. |expression| image:: /static/common/mIconExpression.png
    :width: 1.5em
 .. |fileOpen| image:: /static/common/mActionFileOpen.png
@@ -2507,6 +2706,8 @@ in the QGIS user profile.
 .. |filterMap| image:: /static/common/mActionFilterMap.png
    :width: 1.5em
 .. |general| image:: /static/common/general.png
+   :width: 1.5em
+.. |gps| image:: /static/common/mIconGps.png
    :width: 1.5em
 .. |identify| image:: /static/common/mActionIdentify.png
    :width: 1.5em
@@ -2520,7 +2721,11 @@ in the QGIS user profile.
    :width: 1.5em
 .. |layoutItem3DMap| image:: /static/common/mLayoutItem3DMap.png
    :width: 1.5em
+.. |measure| image:: /static/common/mActionMeasure.png
+   :width: 1.5em
 .. |measureBearing| image:: /static/common/mActionMeasureBearing.png
+   :width: 1.5em
+.. |newPage| image:: /static/common/mActionNewPage.png
    :width: 1.5em
 .. |nix| image:: /static/common/nix.png
    :width: 1em

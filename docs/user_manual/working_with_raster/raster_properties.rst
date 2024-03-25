@@ -10,6 +10,17 @@ Raster Properties Dialog
    .. contents::
       :local:
 
+Raster data is made up of pixels (or cells), and each pixel has a value.
+It is commonly used to store various types of data, including:
+
+* Imagery, such as satellite images, digital aerial photographs, scanned maps
+* Elevation data, such as digital elevation models (DEMs), digital terrain models (DTMs)
+* Other types of data, such as land cover, soil types, rainfall and many others.
+
+Raster data can be stored in several supported formats, including GeoTIFF,
+ERDAS Imagine, ArcInfo ASCII GRID, PostGIS Raster and others.
+See more at :ref:`opening_data`.
+
 To view and set the properties for a raster layer, double click on
 the layer name in the map legend, or right click on the layer name and
 choose :guilabel:`Properties` from the context menu. This will open the
@@ -26,14 +37,15 @@ There are several tabs in the dialog:
     - |rasterHistogram| :ref:`Histogram <raster_histogram>`:sup:`[1]`
     - |rendering| :ref:`Rendering <raster_rendering>`
   * - |temporal| :ref:`Temporal <raster_temporal>`
-    - |elevationscale| :ref:`Elevation <raster_elevation>`
     - |pyramids| :ref:`Pyramids <raster_pyramids>`
+    - |elevationscale| :ref:`Elevation <raster_elevation>`
   * - |editMetadata| :ref:`Metadata <raster_metadata>`
     - |legend| :ref:`Legend <raster_server>`
-    - |overlay| :ref:`QGIS Server <raster_server>`
-  * - :ref:`External plugins <plugins>`:sup:`[2]` tabs
+    - |display| :ref:`Display <raster_display>`
+  * - |overlay| :ref:`QGIS Server <raster_server>`
+    - :ref:`External plugins <plugins>`:sup:`[2]` tabs
     -
-    -
+
 
 :sup:`[1]` Also available in the :ref:`Layer styling panel <layer_styling_panel>`
 
@@ -566,11 +578,10 @@ transformation.
 
 When applying the 'Nearest neighbour' method, the map can get a
 pixelated structure when zooming in.
-This appearance can be improved by using the 'Bilinear' or 'Cubic'
-method, which cause sharp edges to be blurred.
+This appearance can be improved by using the 'Bilinear (2x2 kernel)'
+or 'Cubic (4x4 kernel)' method, which cause sharp edges to be blurred.
 The effect is a smoother image.
-This method can be applied to for instance digital topographic
-raster maps.
+This method can be applied to for instance digital topographic raster maps.
 
 |checkbox| :guilabel:`Early resampling`: allows to calculate the raster
 rendering at the provider level where the resolution of the source is known,
@@ -585,7 +596,7 @@ Really convenient for tile rasters loaded using an :ref:`interpretation method
 Transparency Properties
 =======================
 
-|transparency| QGIS provides capabilities to set the transparency level
+QGIS provides capabilities to set the |transparency| :guilabel:`Transparency` level
 of a raster layer.
 
 Use the :guilabel:`Global opacity` slider to set to what extent the
@@ -685,9 +696,8 @@ Rendering Properties
 In the |rendering| :guilabel:`Rendering` tab, it's possible to:
 
 * set :guilabel:`Scale dependent visibility` for the layer:
-  You can set the :guilabel:`Maximum (inclusive)` and
-  :guilabel:`Minimum (exclusive)` scale, defining a range of scales in
-  which the layer will be visible.
+  You can set the :guilabel:`Maximum (inclusive)` and :guilabel:`Minimum (exclusive)` scales,
+  defining a range of scales in which the layer will be visible.
   It will be hidden outside this range.
   The |mapIdentification| :sup:`Set to current canvas scale` button
   helps you use the current map canvas scale as a boundary.
@@ -699,11 +709,20 @@ In the |rendering| :guilabel:`Rendering` tab, it's possible to:
    the :guilabel:`Layers` panel: right-click on the layer and in the contextual menu,
    select :guilabel:`Set Layer Scale Visibility`.
 
+* |checkbox| :guilabel:`Refresh layer at interval`: controls whether and how regular a layer can be refreshed.
+  Available :guilabel:`Configuration` options are:
 
-* :guilabel:`Refresh layer at interval (seconds)`: set a timer to
-  automatically refresh individual layers.
-  Canvas updates are deferred in order to avoid refreshing multiple
-  times if more than one layer has an auto update interval set.
+  * :guilabel:`Reload data`: the layer will be completely refreshed.
+    Any cached data will be discarded and refetched from the provider.
+    This mode may result in slower map refreshes.
+  * :guilabel:`Redraw layer only`: this mode is useful for animation
+    or when the layer's style will be updated at regular intervals.
+    Canvas updates are deferred in order to avoid refreshing multiple times
+    if more than one layer has an auto update interval set.
+
+    .. todo: Add a link to animation styling when available
+
+  It is also possible to set the :guilabel:`Interval (seconds)` between consecutive refreshments.
 
 .. _figure_raster_rendering:
 
@@ -746,39 +765,6 @@ set whether the layer redraw should be:
   frame. It's useful when the layer uses time-based expression values for
   renderer settings (e.g. data-defined renderer opacity, to fade in/out
   a raster layer).
-
-
-.. index:: Elevation, Terrain
-.. _raster_elevation:
-
-Elevation Properties
-====================
-
-The |elevationscale| :guilabel:`Elevation` tab provides options to control
-the layer elevation properties within a :ref:`3D map view <label_3dmapview>`
-and its appearance in the :ref:`profile tool charts <label_elevation_profile_view>`.
-Specifically, you can set:
-
-.. _figure_raster_elevation:
-
-.. figure:: img/rasterElevation.png
-   :align: center
-
-   Raster Elevation Properties
-
-* |unchecked| :guilabel:`Represents Elevation Surface`:
-  whether the raster layer represents a height surface (e.g DEM) and the pixel
-  values should be interpreted as elevations.
-  Check this option if you want to display a raster in an :ref:`elevation profile view <label_elevation_profile_view>`.
-  You will also need to fill in the :guilabel:`Band` to pick values from
-  and can apply a :guilabel:`Scale` factor and an :guilabel:`Offset`.
-* :guilabel:`Profile Chart Appearance`: controls the rendering
-  :guilabel:`Style` the raster elevation will use when drawing a profile chart.
-  It can be set as:
-
-  * a profile :guilabel:`Line` with a :ref:`line style <vector_line_symbols>` applied
-  * a surface with :guilabel:`Fill below` and a corresponding
-    :ref:`fill style <vector_fill_symbols>`
 
 
 .. index:: Pyramids
@@ -835,6 +821,44 @@ Finally, click :guilabel:`Build Pyramids` to start the process.
    Raster Pyramids
 
 
+.. index:: Elevation, Terrain
+.. _raster_elevation:
+
+Elevation Properties
+====================
+
+The |elevationscale| :guilabel:`Elevation` tab provides options to control
+the layer elevation properties within a :ref:`3D map view <label_3dmapview>`
+and its appearance in the :ref:`profile tool charts <label_elevation_profile_view>`.
+Specifically, you can set:
+
+.. _figure_raster_elevation:
+
+.. figure:: img/rasterElevation.png
+   :align: center
+
+   Raster Elevation Properties
+
+* |unchecked| :guilabel:`Represents Elevation Surface`:
+  whether the raster layer represents a height surface (e.g DEM) and the pixel
+  values should be interpreted as elevations.
+  Check this option if you want to display a raster in an :ref:`elevation profile view <label_elevation_profile_view>`.
+  You will also need to fill in the :guilabel:`Band` to pick values from
+  and can apply a :guilabel:`Scale` factor and an :guilabel:`Offset`.
+* :guilabel:`Profile Chart Appearance`: controls the rendering
+  of the raster elevation data in the profile chart.
+  The profile :guilabel:`Style` can be set as:
+
+  * a :guilabel:`Line` with a specific :ref:`Line style <vector_line_symbols>`
+  * an elevation surface rendered using a fill symbol either above (:guilabel:`Fill above`)
+    or below (:guilabel:`Fill below`) the elevation curve line.
+    The surface symbology is represented using:
+
+    * a :ref:`Fill style <vector_fill_symbols>`
+    * and a :guilabel:`Limit`: the maximum (respectively minimum) altitude
+      determining how high the fill surface will be
+
+
 .. index:: Metadata, Metadata editor, Keyword
 .. _raster_metadata:
 
@@ -887,6 +911,40 @@ layout legend <layout_legend_item>`. These options include:
    Raster Legend
 
 
+.. index:: Map tips
+.. _raster_display:
+
+Display Properties
+==================
+
+The |display| :guilabel:`Display` tab helps you configure HTML map tips to use for
+pixels identification:
+
+* |checkbox| :guilabel:`Enable Map Tips` controls whether to display map tips for the layer
+* The :guilabel:`HTML Map Tip` provides a complex and full HTML text editor for map tips,
+  mixing QGIS expressions and html styles and tags (multiline, fonts, images, hyperlink, tables, ...).
+  You can check the result of your code sample in the :guilabel:`Preview` frame.
+
+.. _figure_raster_display:
+
+.. figure:: img/rasterDisplay.png
+   :align: center
+
+   Map tips with raster layer
+
+
+To display map tips:
+
+#. Select the menu option :menuselection:`View --> Show Map Tips`
+   or click on the |mapTips| :sup:`Show Map Tips` icon of the :guilabel:`Attributes Toolbar`.
+#. Make sure that the layer you target is active
+   and has the |checkbox| :guilabel:`Enable Map Tips` property checked.
+#. Move over a pixel, and the corresponding information will be displayed over.
+
+Map tip is a cross-layer feature meaning that once activated,
+it stays on and applies to any map tip enabled layer in the project until it is toggled off.
+
+
 .. index:: QGIS Server
 .. _raster_server:
 
@@ -920,6 +978,37 @@ The configuration concerns:
 
    QGIS Server in Raster Properties
 
+.. _raster_identify:
+
+Identify raster cells
+=====================
+
+The |identify| :ref:`identify features <identify>` tool allows you to get information about
+specific points in a raster layer. 
+
+To use the |identify|:guilabel:`Identify features` tool:
+
+#. Select the raster layer in the Layers panel.
+#. Click on the :guilabel:`Identify features` tool in the toolbar or press :kbd:`Ctrl+Shift+I`.
+#. Click on the point in the raster layer that you want to identify.
+
+The Identify Results panel will open in its default ``Tree`` view
+and display information about the clicked point.
+Below the name of the raster layer, you have on the left the band(s) of the clicked pixel,
+and on the right their respective value.
+These values can also be rendered (from the :guilabel:`View` menu located at the bottom of the panel) in:
+
+* a ``Table`` view - organizes the information about the identified features
+  and their values in a table.
+* a ``Graph`` view - organizes the information about the identified features
+  and their values in a graph.
+
+Under the pixel attributes, you will find the :guilabel:`Derived` information,
+such as:
+
+* ``X`` and ``Y`` coordinate values of the point clicked
+* Column and row of the point clicked (pixel)
+
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
    This will be automatically updated by the find_set_subst.py script.
@@ -933,6 +1022,8 @@ The configuration concerns:
    :width: 1.3em
 .. |contextHelp| image:: /static/common/mActionContextHelp.png
    :width: 1.5em
+.. |display| image:: /static/common/display.png
+   :width: 1.5em
 .. |editMetadata| image:: /static/common/editmetadata.png
    :width: 1.2em
 .. |elevationscale| image:: /static/common/elevationscale.png
@@ -943,9 +1034,13 @@ The configuration concerns:
    :width: 1.5em
 .. |fileSaveAs| image:: /static/common/mActionFileSaveAs.png
    :width: 1.5em
+.. |identify| image:: /static/common/mActionIdentify.png
+   :width: 1.5em
 .. |legend| image:: /static/common/legend.png
    :width: 1.2em
 .. |mapIdentification| image:: /static/common/mActionMapIdentification.png
+   :width: 1.5em
+.. |mapTips| image:: /static/common/mActionMapTips.png
    :width: 1.5em
 .. |metadata| image:: /static/common/metadata.png
    :width: 1.5em
